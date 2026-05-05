@@ -3,48 +3,450 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#2563eb" />
+  <meta name="theme-color" content="#7c3aed" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="Drone Checklist" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <title>Drone Inspection Checklist & Flight Log</title>
+
   <style>
     :root {
-      --bg: #0f172a; --card: rgba(255,255,255,.96); --text:#111827; --muted:#64748b;
-      --accent:#7c3aed; --accent2:#06b6d4; --good:#22c55e; --danger:#ef4444;
-      --orange:#f97316; --pink:#ec4899; --yellow:#facc15;
-      --border:#e5e7eb; --shadow:0 18px 45px rgba(15,23,42,.18);
+      --card: rgba(255,255,255,.96);
+      --text: #111827;
+      --muted: #64748b;
+      --accent: #7c3aed;
+      --accent2: #06b6d4;
+      --good: #22c55e;
+      --danger: #ef4444;
+      --orange: #f97316;
+      --pink: #ec4899;
+      --yellow: #facc15;
+      --shadow: 0 18px 45px rgba(15,23,42,.18);
     }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(circle at top left,rgba(236,72,153,.32),transparent 30%),radial-gradient(circle at top right,rgba(250,204,21,.28),transparent 28%),radial-gradient(circle at center,rgba(6,182,212,.24),transparent 36%),linear-gradient(135deg,#020617 0%,#172554 45%,#581c87 100%);color:var(--text);line-height:1.45;min-height:100vh}
-    header{color:#fff;padding:28px 16px 20px}.hero{max-width:1050px;margin:0 auto;display:grid;grid-template-columns:1.5fr .85fr;gap:18px}.hero-panel{background:linear-gradient(135deg,rgba(124,58,237,.28),rgba(6,182,212,.20),rgba(236,72,153,.18));border:1px solid rgba(255,255,255,.28);border-radius:28px;padding:24px;box-shadow:var(--shadow);backdrop-filter:blur(12px)}
-    .badge{display:inline-flex;gap:8px;padding:8px 12px;border-radius:999px;background:linear-gradient(135deg,rgba(34,197,94,.24),rgba(6,182,212,.24));border:1px solid rgba(255,255,255,.35);color:#f0fdf4;font-size:.86rem;font-weight:900;margin-bottom:12px}h1{margin:0;font-size:clamp(1.8rem,5vw,3.2rem);line-height:1.05;letter-spacing:-.04em}header p{margin:12px 0 0;color:#dbeafe;font-size:1rem;max-width:680px}
-    .hero-stats{display:grid;gap:10px}.stat{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.16);border-radius:18px;padding:14px;color:#fff;box-shadow:0 10px 24px rgba(0,0,0,.12)}.stat small{display:block;color:#cbd5e1;font-weight:700}.stat strong{display:block;font-size:1.35rem;margin-top:2px}
-    main{max-width:1050px;margin:0 auto;padding:0 16px 28px}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}.card{background:var(--card);border:1px solid rgba(255,255,255,.72);border-radius:26px;padding:20px;box-shadow:var(--shadow);overflow:hidden;position:relative}.card::before{content:"";position:absolute;left:0;top:0;width:100%;height:5px;background:linear-gradient(90deg,#22c55e,#06b6d4,#7c3aed,#ec4899,#f97316)}.span-4{grid-column:span 4}.span-6{grid-column:span 6}.span-8{grid-column:span 8}.span-12{grid-column:span 12}@media(max-width:760px){.hero{grid-template-columns:1fr}.span-4,.span-6,.span-8,.span-12{grid-column:span 12}header{padding-top:18px}}
-    h2{margin:0 0 10px;font-size:1.25rem;letter-spacing:-.02em}h3{margin:12px 0 6px}label{display:block;font-weight:800;font-size:.86rem;margin:10px 0 5px;color:#334155}input,select,textarea{width:100%;padding:11px 12px;border:1px solid #cbd5e1;border-radius:14px;font:inherit;background:#fff;outline:none;transition:.15s ease}input:focus,select:focus,textarea:focus{border-color:var(--accent2);box-shadow:0 0 0 4px rgba(56,189,248,.18)}textarea{min-height:92px;resize:vertical}
-    button{border:0;border-radius:16px;padding:12px 15px;font-weight:900;cursor:pointer;background:linear-gradient(135deg,var(--accent),var(--pink));color:#fff;margin:7px 7px 0 0;box-shadow:0 12px 24px rgba(124,58,237,.25)}button:hover{transform:translateY(-1px)}button.secondary{background:linear-gradient(135deg,#475569,#334155)}button.good{background:linear-gradient(135deg,#22c55e,#16a34a)}button.danger{background:linear-gradient(135deg,#dc2626,#b91c1c)}button.light{background:#e2e8f0;color:#0f172a;box-shadow:none}.muted{color:var(--muted);font-size:.9rem}
-    .progress-wrap{background:#e2e8f0;border-radius:999px;height:18px;overflow:hidden;border:1px solid #cbd5e1}.progress-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--good),var(--yellow),var(--orange));transition:width .25s}.summary-box{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}.summary-box div,.info-item{background:linear-gradient(135deg,#f8fafc,#eff6ff);border:1px solid #dbeafe;border-radius:18px;padding:13px;box-shadow:0 8px 18px rgba(37,99,235,.08)}.summary-box strong,.info-item strong{display:block;font-size:1.2rem}.timer-box{background:linear-gradient(135deg,#ecfeff,#fef3c7,#fdf2f8);border:1px solid #67e8f9;border-radius:14px;padding:10px;margin-top:10px}.timer-display{font-size:clamp(1.2rem,4vw,1.6rem);font-weight:800;letter-spacing:-.02em;margin:4px 0;color:#0f172a}.timer-status{display:inline-block;padding:4px 8px;border-radius:999px;background:#e2e8f0;color:#334155;font-weight:800;font-size:.8rem}.timer-status.running{background:#dcfce7;color:#166534}.timer-status.stopped{background:#fee2e2;color:#991b1b}.timer-buttons{display:flex;gap:6px;flex-wrap:wrap}.timer-buttons button{min-width:auto;padding:8px 10px;font-size:.85rem}.pilot-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}@media(max-width:760px){.pilot-grid,.summary-box{grid-template-columns:1fr}}
-    .week{border:1px solid #dbe3ef;border-radius:18px;margin:12px 0;overflow:hidden;background:#fff}.week h3{margin:0;padding:14px;background:linear-gradient(135deg,#dbeafe,#f5d0fe,#fef3c7);font-size:1rem;border-bottom:1px solid #e2e8f0}.session{display:grid;grid-template-columns:auto 1fr;gap:11px;padding:12px 14px;border-top:1px solid #f1f5f9;background:linear-gradient(135deg,rgba(255,255,255,.9),rgba(240,249,255,.75))}.session input{width:22px;height:22px;margin-top:2px;accent-color:var(--good)}.session strong{display:block;color:#0f172a}.small{font-size:.85rem;color:#475569}
-    table{width:100%;border-collapse:collapse;font-size:.9rem;background:#fff;border-radius:16px;overflow:hidden}th,td{border-bottom:1px solid #e5e7eb;padding:9px;text-align:left;vertical-align:top}th{background:#f8fafc;color:#334155}.row-actions button{padding:7px 9px;font-size:.78rem}.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:end;margin:8px 0 12px}.toolbar>div{min-width:160px;flex:1}.print-title{display:none}.color-strip{height:8px;border-radius:999px;background:linear-gradient(90deg,#22c55e,#06b6d4,#7c3aed,#ec4899,#f97316,#facc15);margin:10px 0 14px}.privacy-note{display:none}.start-panel{background:linear-gradient(135deg,#7c3aed,#2563eb,#06b6d4);color:white;border-radius:24px;padding:18px;box-shadow:0 18px 40px rgba(37,99,235,.28);margin-bottom:16px}.start-panel h2{color:white;margin-bottom:6px}.start-panel p{color:#e0f2fe;margin:0 0 10px}.start-button{font-size:1.15rem;width:100%;padding:16px 18px;background:linear-gradient(135deg,#22c55e,#06b6d4);box-shadow:0 14px 26px rgba(34,197,94,.28)}.install-card{background:linear-gradient(135deg,#fff7ed,#fdf2f8);border:1px solid #fed7aa;border-radius:18px;padding:14px;margin-top:12px}.floating-start{position:fixed;right:16px;bottom:16px;z-index:20;border-radius:999px;padding:12px 16px;background:linear-gradient(135deg,#22c55e,#06b6d4);box-shadow:0 16px 35px rgba(0,0,0,.28)}    @media print{body{background:white}.no-print,header button,button,input,textarea,select,.toolbar,.row-actions{display:none!important}header{color:#111;padding:0}.hero{display:block}.hero-panel,.stat,.card{box-shadow:none;border:1px solid #aaa;background:white;color:#111}.hero-stats{display:none}.print-title{display:block}.card{break-inside:avoid;margin-bottom:12px}main{max-width:none;padding:0}.grid{display:block}th,td{font-size:11px;padding:6px}h1{font-size:24px}}
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(236,72,153,.32), transparent 30%),
+        radial-gradient(circle at top right, rgba(250,204,21,.28), transparent 28%),
+        radial-gradient(circle at center, rgba(6,182,212,.24), transparent 36%),
+        linear-gradient(135deg, #020617 0%, #172554 45%, #581c87 100%);
+      color: var(--text);
+      line-height: 1.45;
+      min-height: 100vh;
+    }
+
+    header {
+      color: white;
+      padding: 28px 16px 20px;
+    }
+
+    .hero {
+      max-width: 1050px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.5fr .85fr;
+      gap: 18px;
+    }
+
+    .hero-panel {
+      background: linear-gradient(135deg, rgba(124,58,237,.28), rgba(6,182,212,.20), rgba(236,72,153,.18));
+      border: 1px solid rgba(255,255,255,.28);
+      border-radius: 28px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .badge {
+      display: inline-flex;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(34,197,94,.24), rgba(6,182,212,.24));
+      border: 1px solid rgba(255,255,255,.35);
+      color: #f0fdf4;
+      font-size: .86rem;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.8rem, 5vw, 3.2rem);
+      line-height: 1.05;
+      letter-spacing: -.04em;
+    }
+
+    header p {
+      margin: 12px 0 0;
+      color: #dbeafe;
+      font-size: 1rem;
+      max-width: 680px;
+    }
+
+    .hero-stats {
+      display: grid;
+      gap: 10px;
+    }
+
+    .stat {
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 18px;
+      padding: 14px;
+      color: white;
+      box-shadow: 0 10px 24px rgba(0,0,0,.12);
+    }
+
+    .stat small {
+      display: block;
+      color: #cbd5e1;
+      font-weight: 700;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.35rem;
+      margin-top: 2px;
+    }
+
+    main {
+      max-width: 1050px;
+      margin: 0 auto;
+      padding: 0 16px 28px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 16px;
+    }
+
+    .span-4 { grid-column: span 4; }
+    .span-6 { grid-column: span 6; }
+    .span-8 { grid-column: span 8; }
+    .span-12 { grid-column: span 12; }
+
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,.72);
+      border-radius: 26px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, #22c55e, #06b6d4, #7c3aed, #ec4899, #f97316);
+    }
+
+    h2 {
+      margin: 0 0 10px;
+      font-size: 1.25rem;
+      letter-spacing: -.02em;
+    }
+
+    h3 { margin: 12px 0 6px; }
+
+    label {
+      display: block;
+      font-weight: 800;
+      font-size: .86rem;
+      margin: 10px 0 5px;
+      color: #334155;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 14px;
+      font: inherit;
+      background: white;
+      outline: none;
+      transition: .15s ease;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--accent2);
+      box-shadow: 0 0 0 4px rgba(56,189,248,.18);
+    }
+
+    textarea {
+      min-height: 92px;
+      resize: vertical;
+    }
+
+    button, .button-link {
+      border: 0;
+      border-radius: 16px;
+      padding: 12px 15px;
+      font-weight: 900;
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--accent), var(--pink));
+      color: white;
+      margin: 7px 7px 0 0;
+      box-shadow: 0 12px 24px rgba(124,58,237,.25);
+      text-decoration: none;
+      display: inline-block;
+      font: inherit;
+    }
+
+    button:hover, .button-link:hover { transform: translateY(-1px); }
+    button.secondary { background: linear-gradient(135deg, #475569, #334155); }
+    button.good { background: linear-gradient(135deg, #22c55e, #16a34a); }
+    button.danger { background: linear-gradient(135deg, #dc2626, #b91c1c); }
+    button.light { background: #e2e8f0; color: #0f172a; box-shadow: none; }
+
+    .muted {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .color-strip {
+      height: 8px;
+      border-radius: 999px;
+      background: linear-gradient(90deg,#22c55e,#06b6d4,#7c3aed,#ec4899,#f97316,#facc15);
+      margin: 10px 0 14px;
+    }
+
+    .start-panel {
+      background: linear-gradient(135deg,#7c3aed,#2563eb,#06b6d4);
+      color: white;
+      border-radius: 24px;
+      padding: 18px;
+      box-shadow: 0 18px 40px rgba(37,99,235,.28);
+      margin-bottom: 12px;
+    }
+
+    .start-panel h2 { color: white; margin-bottom: 6px; }
+    .start-panel p { color: #e0f2fe; margin: 0 0 10px; }
+
+    .start-button {
+      width: 100%;
+      font-size: 1.08rem;
+      padding: 15px 18px;
+      background: linear-gradient(135deg,#22c55e,#06b6d4);
+      box-shadow: 0 14px 26px rgba(34,197,94,.28);
+    }
+
+    .timer-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      background: linear-gradient(135deg,#ecfeff,#fef3c7,#fdf2f8);
+      border: 1px solid #67e8f9;
+      border-radius: 16px;
+      padding: 10px 12px;
+      margin-top: 10px;
+    }
+
+    .timer-left strong {
+      display: block;
+      font-size: .9rem;
+    }
+
+    .timer-status {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #e2e8f0;
+      color: #334155;
+      font-weight: 800;
+      font-size: .78rem;
+      margin-top: 4px;
+    }
+
+    .timer-status.running { background:#dcfce7; color:#166534; }
+    .timer-status.stopped { background:#fee2e2; color:#991b1b; }
+
+    .timer-display {
+      font-size: clamp(1.35rem, 5vw, 2rem);
+      font-weight: 1000;
+      letter-spacing: -.03em;
+      color: #0f172a;
+      min-width: 110px;
+      text-align: center;
+    }
+
+    .timer-buttons {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .timer-buttons button {
+      min-width: auto;
+      padding: 8px 10px;
+      font-size: .85rem;
+      margin: 0;
+    }
+
+    .floating-start {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      z-index: 20;
+      border-radius: 999px;
+      padding: 12px 16px;
+      background: linear-gradient(135deg,#22c55e,#06b6d4);
+      box-shadow: 0 16px 35px rgba(0,0,0,.28);
+    }
+
+    .pilot-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .info-item, .summary-box div {
+      background: linear-gradient(135deg,#f8fafc,#eff6ff);
+      border: 1px solid #dbeafe;
+      border-radius: 18px;
+      padding: 13px;
+      box-shadow: 0 8px 18px rgba(37,99,235,.08);
+    }
+
+    .info-item strong, .summary-box strong {
+      display: block;
+      font-size: 1.2rem;
+    }
+
+    .summary-box {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .progress-wrap {
+      background: #e2e8f0;
+      border-radius: 999px;
+      height: 18px;
+      overflow: hidden;
+      border: 1px solid #cbd5e1;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg,var(--good),var(--yellow),var(--orange));
+      transition: width .25s;
+    }
+
+    .session {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 11px;
+      padding: 12px 14px;
+      border-top: 1px solid #f1f5f9;
+      background: linear-gradient(135deg,rgba(255,255,255,.9),rgba(240,249,255,.75));
+    }
+
+    .session input {
+      width: 22px;
+      height: 22px;
+      margin-top: 2px;
+      accent-color: var(--good);
+    }
+
+    .session strong { display: block; color:#0f172a; }
+    .small { font-size: .85rem; color:#475569; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .9rem;
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    th, td {
+      border-bottom: 1px solid #e5e7eb;
+      padding: 9px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th { background:#f8fafc; color:#334155; }
+    .row-actions button { padding:7px 9px; font-size:.78rem; }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: end;
+      margin: 8px 0 12px;
+    }
+
+    .toolbar > div {
+      min-width: 160px;
+      flex: 1;
+    }
+
+    .print-title { display: none; }
+
+    @media (max-width: 760px) {
+      .hero { grid-template-columns: 1fr; }
+      .span-4, .span-6, .span-8, .span-12 { grid-column: span 12; }
+      .pilot-grid, .summary-box { grid-template-columns: 1fr; }
+      .timer-box { align-items: flex-start; }
+      .timer-display { text-align: left; }
+      .timer-buttons { width: 100%; justify-content: flex-start; }
+      header { padding-top: 18px; }
+    }
+
+    @media print {
+      body { background: white; }
+      .no-print, header button, button, input, textarea, select, .toolbar, .row-actions { display: none !important; }
+      header { color:#111; padding:0; }
+      .hero { display:block; }
+      .hero-panel, .stat, .card { box-shadow:none; border:1px solid #aaa; background:white; color:#111; }
+      .hero-stats { display:none; }
+      .print-title { display:block; }
+      .card { break-inside:avoid; margin-bottom:12px; }
+      main { max-width:none; padding:0; }
+      .grid { display:block; }
+      th,td { font-size:11px; padding:6px; }
+      h1 { font-size:24px; }
+    }
   </style>
 </head>
+
 <body>
 <header>
   <div class="hero">
-    <div class="hero-panel"><div class="badge">✈️ Drone Operations</div><h1>Drone Inspection Checklist & Flight Log</h1><p>Training, flight history, pilot information, and printable progress reports for inspection-style drone practice.</p></div>
-    <div class="hero-stats"><div class="stat"><small>Aircraft</small><strong>HS720G</strong></div><div class="stat"><small>Certificate</small><strong>Remote Pilot</strong></div><div class="stat"><small>FAA ID</small><strong>FAXW3ETX9</strong></div></div>
-  </div>
-</header>
-<main>
-  <button class="floating-start no-print" onclick="startFlight()">🚀 Start Flight</button>
-  
-    <div id="floatingTimerStatus" class="floating-timer-status">Not started</div>
-    <div class="floating-timer-buttons">
-      <button class="good" onclick="startTimer()">Start</button>
-      <button class="danger" onclick="stopTimer()">End</button>
-      <button class="light" onclick="resetTimer()">Reset</button>
+    <div class="hero-panel">
+      <div class="badge">✈️ Drone Operations</div>
+      <h1>Drone Inspection Checklist & Flight Log</h1>
+      <p>Training, flight history, pilot information, and printable progress reports for inspection-style drone practice.</p>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><small>Aircraft</small><strong>HS720G</strong></div>
+      <div class="stat"><small>Certificate</small><strong>Remote Pilot</strong></div>
+      <div class="stat"><small>FAA ID</small><strong>FAXW3ETX9</strong></div>
     </div>
   </div>
+</header>
+
+<main>
+  <button class="floating-start no-print" onclick="startFlight()">🚀 Start Flight</button>
+
   <div class="grid">
     <section class="card span-12 no-print">
       <div class="color-strip"></div>
@@ -53,32 +455,23 @@
         <p>Tap Start Flight to jump to the field checklist and start your flight timer.</p>
         <button class="start-button" onclick="startFlight()">🚀 Start Flight Checklist</button>
       </div>
+
       <div class="timer-box">
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap">
+        <div class="timer-left">
           <strong>Flight Timer</strong>
           <span id="timerStatus" class="timer-status">Not started</span>
         </div>
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:6px;flex-wrap:wrap">
-          <div id="timerDisplay" class="timer-display">00:00:00</div>
-          <div class="timer-buttons">
-            <button class="good" onclick="startTimer()">Start</button>
-            <button class="danger" onclick="stopTimer()">End</button>
-            <button class="light" onclick="resetTimer()">Reset</button>
-          </div>
-        </div>
-      </div>
+        <div id="timerDisplay" class="timer-display">00:00:00</div>
         <div class="timer-buttons">
-          <button class="good" onclick="startTimer()">Start Timer</button>
-          <button class="danger" onclick="stopTimer()">End Timer</button>
+          <button class="good" onclick="startTimer()">Start</button>
+          <button class="danger" onclick="stopTimer()">End</button>
           <button class="light" onclick="resetTimer()">Reset</button>
         </div>
-        <p class="muted">When you end the timer, the minutes flown field will fill in automatically.</p>
       </div>
-      
     </section>
+
     <section class="card span-12">
       <h2>Pilot / Certificate Information</h2>
-      
       <div class="pilot-grid">
         <div class="info-item"><span class="muted">Pilot Name</span><strong>Kevin Carl Wiltz</strong></div>
         <div class="info-item"><span class="muted">FAA ID</span><strong>FAXW3ETX9</strong></div>
@@ -132,142 +525,334 @@
       </div>
     </section>
 
-    <section class="card span-4"><h2>Progress</h2><div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div><p><strong id="progressText">0%</strong> complete</p><div class="summary-box"><div><span class="muted">Flights</span><strong id="flightCount">0</strong></div><div><span class="muted">Minutes</span><strong id="minuteCount">0</strong></div><div><span class="muted">Hours</span><strong id="hourCount">0.0</strong></div></div><p class="muted">Progress and logs save on this device automatically.</p><button class="good" onclick="printReport()">Print Report</button><button class="secondary" onclick="exportData()">Export Backup</button><button class="light" onclick="document.getElementById('importFile').click()">Import Backup</button><input id="importFile" type="file" accept=".json" style="display:none" onchange="importData(event)"></section>
+    <section class="card span-4">
+      <h2>Progress</h2>
+      <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+      <p><strong id="progressText">0%</strong> complete</p>
+      <div class="summary-box">
+        <div><span class="muted">Flights</span><strong id="flightCount">0</strong></div>
+        <div><span class="muted">Minutes</span><strong id="minuteCount">0</strong></div>
+        <div><span class="muted">Hours</span><strong id="hourCount">0.0</strong></div>
+      </div>
+      <p class="muted">Progress and logs save on this device automatically.</p>
+      <button class="good" onclick="printReport()">Print Report</button>
+      <button class="secondary" onclick="exportData()">Export Backup</button>
+      <button class="light" onclick="document.getElementById('importFile').click()">Import Backup</button>
+      <input id="importFile" type="file" accept=".json" style="display:none" onchange="importData(event)">
+    </section>
 
-    <section class="card span-8"><h2>Quick Flight Log</h2><div class="grid"><div class="span-4"><label>Date</label><input id="date" type="date"></div><div class="span-4"><label>Location</label><input id="location" placeholder="Lake Arcadia, Mitch Park, etc."></div><div class="span-4"><label>Drone</label><input id="drone" value="Holy Stone HS720G"></div><div class="span-4"><label>Minutes Flown</label><input id="minutes" type="number" min="0" step="1" placeholder="20"></div><div class="span-4"><label>Wind</label><input id="wind" placeholder="Calm / 8 mph / gusty"></div><div class="span-4"><label>Session Type</label><select id="sessionType"><option>Hover & Control</option><option>Box Pattern</option><option>Orbit Practice</option><option>Wind Handling</option><option>Roof Inspection Simulation</option><option>Mock Job</option><option>Emergency Practice</option><option>Other</option></select></div><div class="span-12"><label>Notes / What improved / What to practice next</label><textarea id="notes" placeholder="Example: Smooth orbit improved. Need work on top-down positioning in wind."></textarea></div></div><button onclick="saveLog()">Save Flight Log</button><button class="light" onclick="clearForm()">Clear</button></section>
-
-    <section class="card span-12">
-      <h2>Start Flight Mode</h2>
-      <p class="muted">Use this step-by-step checklist in the field. It combines pre-flight, training objective, in-flight execution, and post-flight review.</p>
-
+    <section class="card span-8">
+      <h2>Quick Flight Log</h2>
       <div class="grid">
-        <div class="span-6">
-          <h3>1. Pre-Flight</h3>
-          <div class="session"><input type="checkbox"><div><strong>Pilot Verified</strong><span class="small">Kevin Carl Wiltz | FAA ID: FAXW3ETX9 | Remote Pilot</span></div></div>
-          <div class="session"><input type="checkbox"><div><strong>Airspace Checked</strong><span class="small">LAANC / NOTAMs / TFRs reviewed before launch</span></div></div>
-          <div class="session"><input type="checkbox"><div><strong>Weather Checked</strong><span class="small">Wind, gusts, visibility, and temperature acceptable</span></div></div>
-          <div class="session"><input type="checkbox"><div><strong>Remote ID Active</strong><span class="small">Module powered on and broadcasting</span></div></div>
-          <div class="session"><input type="checkbox"><div><strong>Aircraft Ready</strong><span class="small">Props, battery, camera, controller, and SD/storage checked</span></div></div>
-          <div class="session"><input type="checkbox"><div><strong>Home Point Set</strong><span class="small">GPS lock confirmed before beginning mission</span></div></div>
+        <div class="span-4"><label>Date</label><input id="date" type="date"></div>
+        <div class="span-4"><label>Location</label><input id="location" placeholder="Lake Arcadia, Mitch Park, etc."></div>
+        <div class="span-4"><label>Drone</label><input id="drone" value="Holy Stone HS720G"></div>
+        <div class="span-4"><label>Minutes Flown</label><input id="minutes" type="number" min="0" step="1" placeholder="20"></div>
+        <div class="span-4"><label>Wind</label><input id="wind" placeholder="Calm / 8 mph / gusty"></div>
+        <div class="span-4">
+          <label>Session Type</label>
+          <select id="sessionType">
+            <option>Hover & Control</option>
+            <option>Box Pattern</option>
+            <option>Orbit Practice</option>
+            <option>Wind Handling</option>
+            <option>Roof Inspection Simulation</option>
+            <option>Mock Job</option>
+            <option>Emergency Practice</option>
+            <option>Other</option>
+          </select>
         </div>
-
-        <div class="span-6">
-          <h3>2. Mission / Training Objective</h3>
-          <div class="session"><input type="checkbox"><div><strong>Select Flight Purpose</strong><span class="small">Training, roof inspection simulation, photo practice, or mock job</span></div></div>
-          <div class="session"><input type="checkbox"><div><strong>Choose Skill Focus</strong><span class="small">Hover, box pattern, orbit, roofline tracking, top-down photos, or wind control</span></div></div>
-          <div class="session"><input type="checkbox"><div><strong>Identify Hazards</strong><span class="small">Trees, wires, people, vehicles, buildings, birds, and landing obstacles</span></div></div>
-          <div class="session"><input type="checkbox"><div><strong>Plan Photo Set</strong><span class="small">Front, back, left, right, angled views, and top-down shots if safe</span></div></div>
-        </div>
-
-        <div class="span-6">
-          <h3>3. In-Flight Execution</h3>
-          <div class="session"><input type="checkbox"><div><strong>Controlled Takeoff</strong><span class="small">Rise to safe hover and confirm stable control</span></div></div>
-          <div class="session"><input type="checkbox"><div><strong>Maintain Visual Line of Sight</strong><span class="small">Keep drone visible and avoid flying behind structures</span></div></div>
-          <div class="session"><input type="checkbox"><div><strong>Smooth Stick Inputs</strong><span class="small">No jerky movements; slow and deliberate control</span></div></div>
-          <div class="session"><input type="checkbox"><div><strong>Monitor Battery & Wind</strong><span class="small">Return early if battery, wind, or control margin becomes questionable</span></div></div>
-          <div class="session"><input type="checkbox"><div><strong>Complete Objective</strong><span class="small">Finish selected training skill or inspection-style photo sequence</span></div></div>
-        </div>
-
-        <div class="span-6">
-          <h3>4. Post-Flight</h3>
-          <div class="session"><input type="checkbox"><div><strong>Controlled Landing</strong><span class="small">Land safely and power down aircraft/controller/module</span></div></div>
-          <div class="session"><input type="checkbox"><div><strong>Equipment Inspected</strong><span class="small">Props, frame, camera, battery, and module checked for damage</span></div></div>
-          <div class="session"><input type="checkbox"><div><strong>Photos Reviewed</strong><span class="small">Check sharpness, coverage, angles, and missing shots</span></div></div>
-          <div class="session"><input type="checkbox"><div><strong>Flight Logged</strong><span class="small">Enter date, location, wind, minutes, session type, and notes below</span></div></div>
-          <div class="session"><input type="checkbox"><div><strong>Lesson Learned</strong><span class="small">Write one thing that went well and one thing to improve next flight</span></div></div>
+        <div class="span-12">
+          <label>Notes / What improved / What to practice next</label>
+          <textarea id="notes" placeholder="Example: Smooth orbit improved. Need work on top-down positioning in wind."></textarea>
         </div>
       </div>
+      <button onclick="saveLog()">Save Flight Log</button>
+      <button class="light" onclick="clearForm()">Clear</button>
     </section>
 
     <section class="card span-12">
       <h2>6-Week Training Plan</h2>
       <p class="muted">Open your training plan on a separate page.</p>
-      <a href="training.html" style="display:inline-block;margin-top:10px;padding:12px 16px;border-radius:14px;background:linear-gradient(135deg,#7c3aed,#06b6d4);color:white;font-weight:900;text-decoration:none;box-shadow:0 10px 20px rgba(124,58,237,.25)">
-        Open Training Plan →
-      </a>
+      <a href="training.html" class="button-link">Open Training Plan →</a>
     </section>
 
-    <section class="card span-12"><h2>Flight History</h2><p class="muted">Search or filter your saved flight history. Use Print Report to print the filtered history and progress summary.</p><div class="toolbar no-print"><div><label>Search</label><input id="searchBox" placeholder="Location, wind, notes..." oninput="renderLogs()"></div><div><label>Session Type</label><select id="filterType" onchange="renderLogs()"><option value="">All</option><option>Hover & Control</option><option>Box Pattern</option><option>Orbit Practice</option><option>Wind Handling</option><option>Roof Inspection Simulation</option><option>Mock Job</option><option>Emergency Practice</option><option>Other</option></select></div><div><label>From</label><input id="fromDate" type="date" onchange="renderLogs()"></div><div><label>To</label><input id="toDate" type="date" onchange="renderLogs()"></div><div><button class="light" onclick="clearFilters()">Clear Filters</button></div></div><h3 class="print-title">Printed Flight History Report</h3><div style="overflow-x:auto;"><table><thead><tr><th>Date</th><th>Location</th><th>Drone</th><th>Minutes</th><th>Wind</th><th>Type</th><th>Notes</th><th class="no-print">Action</th></tr></thead><tbody id="logRows"></tbody></table></div></section>
+    <section class="card span-12">
+      <h2>Flight History</h2>
+      <p class="muted">Search or filter your saved flight history. Use Print Report to print the filtered history and progress summary.</p>
+      <div class="toolbar no-print">
+        <div><label>Search</label><input id="searchBox" placeholder="Location, wind, notes..." oninput="renderLogs()"></div>
+        <div>
+          <label>Session Type</label>
+          <select id="filterType" onchange="renderLogs()">
+            <option value="">All</option>
+            <option>Hover & Control</option>
+            <option>Box Pattern</option>
+            <option>Orbit Practice</option>
+            <option>Wind Handling</option>
+            <option>Roof Inspection Simulation</option>
+            <option>Mock Job</option>
+            <option>Emergency Practice</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div><label>From</label><input id="fromDate" type="date" onchange="renderLogs()"></div>
+        <div><label>To</label><input id="toDate" type="date" onchange="renderLogs()"></div>
+        <div><button class="light" onclick="clearFilters()">Clear Filters</button></div>
+      </div>
+      <h3 class="print-title">Printed Flight History Report</h3>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th><th>Location</th><th>Drone</th><th>Minutes</th><th>Wind</th><th>Type</th><th>Notes</th><th class="no-print">Action</th>
+            </tr>
+          </thead>
+          <tbody id="logRows"></tbody>
+        </table>
+      </div>
+    </section>
   </div>
 </main>
+
 <script>
-const plan=[{week:"Week 1 – Foundation / Control",goal:"Smooth flying, no panic inputs",sessions:[["Hover Mastery","Hover at 20–30 ft. Hold position 60 seconds. Practice tiny stick corrections."],["Straight Lines","Fly forward/back and side-to-side. Keep altitude steady."],["Yaw Control","Rotate slowly in place while holding position."],["Combine Basics","Hover → move → stop → rotate → hover."]]},{week:"Week 2 – Movement & Patterns",goal:"Build muscle memory",sessions:[["Box Pattern","Fly a square pattern with steady altitude and straight lines."],["Figure 8","Smooth transitions between turns."],["Wide Circles / Orbit","Orbit a fixed object while keeping distance consistent."],["Light Wind Practice","Fly in 5–10 mph wind. Hold position and correct drift."]]},{week:"Week 3 – Precision & Distance",goal:"Stop exactly where you want",sessions:[["Approach & Stop","Fly toward an object and stop 20–30 ft away."],["Altitude Control","Hold exact heights: 20, 40, and 60 ft."],["Slow Movement","Fly as slowly as possible without drifting."],["Close Control","Fly near objects at a safe distance; stay clear of trees, wires, and people."]]},{week:"Week 4 – Inspection Skills",goal:"Real-world inspection flying",sessions:[["Orbit Building","Circle a building smoothly at consistent altitude/distance."],["Top-Down Shots","Fly above target and hold position for straight-down photos."],["Edge Tracking","Follow a roofline or structure edge smoothly."],["Full Photo Set","Capture front, back, both sides, top-down, and angled shots."]]},{week:"Week 5 – Real Conditions",goal:"Handle wind, obstacles, and recovery",sessions:[["Moderate Wind","Practice hover and slow flight in 8–12 mph wind only if safe."],["Obstacle Awareness","Identify trees, poles, wires, people, and escape routes before flying."],["Emergency Practice","Simulate low battery return and quick landing."],["Recovery Control","Practice regaining control after drift or overcorrection."]]},{week:"Week 6 – Mock Job Training",goal:"Fly like you are getting paid",sessions:[["Full Pre-Flight Routine","Airspace check, weather check, Remote ID, battery, home point, takeoff area."],["Full Inspection Flight","Orbit, roofline passes, top-down photos, controlled return."],["Efficiency Run","Complete the inspection smoothly with fewer wasted movements."],["Final Job Simulation","Start → inspect → land → log flight → review photos."]]}];
-let timerInterval = null;
-let timerStartTime = null;
-let elapsedSeconds = 0;
+  const checklistIds = [
+    'prePilot','preAirspace','preWeather','preRemoteId','preAircraft','preHomePoint',
+    'missionPurpose','missionSkill','missionHazards','missionPhotos',
+    'flightTakeoff','flightLos','flightSmooth','flightBattery','flightObjective',
+    'postLanding','postEquipment','postPhotos','postLogged','postLesson'
+  ];
 
-function formatTime(totalSeconds){
-  const h = String(Math.floor(totalSeconds / 3600)).padStart(2,'0');
-  const m = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2,'0');
-  const s = String(totalSeconds % 60).padStart(2,'0');
-  return `${h}:${m}:${s}`;
-}
+  let timerInterval = null;
+  let timerStartTime = null;
+  let elapsedSeconds = 0;
 
-function updateTimerDisplay(){
-  const formatted = formatTime(elapsedSeconds);
-  document.getElementById('timerDisplay').textContent = formatted;
-  
-}
+  function todayISO(){ return new Date().toISOString().slice(0,10); }
+  document.getElementById('date').value = todayISO();
 
-function setTimerStatus(text, mode){
-  const status = document.getElementById('timerStatus');
-  status.textContent = text;
-  status.className = `timer-status ${mode || ''}`;
-  
-}
+  function load(){
+    return JSON.parse(localStorage.getItem('droneInspectionLog') || '{"logs":[],"checks":{}}');
+  }
 
-function startTimer(){
-  if(timerInterval) return;
-  timerStartTime = Date.now() - (elapsedSeconds * 1000);
-  setTimerStatus('Timer running', 'running');
-  timerInterval = setInterval(() => {
-    elapsedSeconds = Math.floor((Date.now() - timerStartTime) / 1000);
+  function save(data){
+    localStorage.setItem('droneInspectionLog', JSON.stringify(data));
+  }
+
+  function formatTime(totalSeconds){
+    const h = String(Math.floor(totalSeconds / 3600)).padStart(2,'0');
+    const m = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2,'0');
+    const s = String(totalSeconds % 60).padStart(2,'0');
+    return `${h}:${m}:${s}`;
+  }
+
+  function updateTimerDisplay(){
+    document.getElementById('timerDisplay').textContent = formatTime(elapsedSeconds);
+  }
+
+  function setTimerStatus(text, mode){
+    const status = document.getElementById('timerStatus');
+    status.textContent = text;
+    status.className = `timer-status ${mode || ''}`;
+  }
+
+  function startTimer(){
+    if(timerInterval) return;
+    timerStartTime = Date.now() - (elapsedSeconds * 1000);
+    setTimerStatus('Timer running', 'running');
+    timerInterval = setInterval(() => {
+      elapsedSeconds = Math.floor((Date.now() - timerStartTime) / 1000);
+      updateTimerDisplay();
+    }, 1000);
+  }
+
+  function stopTimer(){
+    if(timerInterval){
+      clearInterval(timerInterval);
+      timerInterval = null;
+    }
+    setTimerStatus('Timer stopped', 'stopped');
+    if(elapsedSeconds > 0){
+      const roundedMinutes = Math.max(1, Math.round(elapsedSeconds / 60));
+      document.getElementById('minutes').value = roundedMinutes;
+      const notes = document.getElementById('notes');
+      const timerNote = `Timer duration: ${formatTime(elapsedSeconds)}`;
+      notes.value = notes.value ? `${notes.value}\n${timerNote}` : timerNote;
+    }
+  }
+
+  function resetTimer(){
+    if(timerInterval){ clearInterval(timerInterval); timerInterval = null; }
+    elapsedSeconds = 0;
+    timerStartTime = null;
     updateTimerDisplay();
-  }, 1000);
-}
-
-function stopTimer(){
-  if(timerInterval){
-    clearInterval(timerInterval);
-    timerInterval = null;
+    setTimerStatus('Not started', '');
   }
-  setTimerStatus('Timer stopped', 'stopped');
-  const roundedMinutes = Math.max(1, Math.round(elapsedSeconds / 60));
-  if(elapsedSeconds > 0){
-    document.getElementById('minutes').value = roundedMinutes;
-    document.getElementById('notes').value = (document.getElementById('notes').value + `
-Timer duration: ${formatTime(elapsedSeconds)}`).trim();
-  }
-}
 
-function resetTimer(){
-  if(timerInterval){ clearInterval(timerInterval); timerInterval = null; }
-  elapsedSeconds = 0;
-  timerStartTime = null;
+  function startFlight(){
+    document.getElementById('startFlightChecklist').scrollIntoView({behavior:'smooth', block:'start'});
+    startTimer();
+  }
+
+  function updateProgress(){
+    const data = load();
+    const total = checklistIds.length;
+    const done = Object.values(data.checks || {}).filter(Boolean).length;
+    const pct = Math.round((done / total) * 100);
+    const minutes = data.logs.reduce((sum, l) => sum + (Number(l.minutes) || 0), 0);
+
+    document.getElementById('progressBar').style.width = pct + '%';
+    document.getElementById('progressText').textContent = `${pct}% (${done}/${total})`;
+    document.getElementById('flightCount').textContent = data.logs.length;
+    document.getElementById('minuteCount').textContent = minutes;
+    document.getElementById('hourCount').textContent = (minutes / 60).toFixed(1);
+  }
+
+  function setupChecklistSaving(){
+    const data = load();
+    const boxes = document.querySelectorAll('#startFlightChecklist input[type="checkbox"]');
+
+    boxes.forEach((box, index) => {
+      const id = checklistIds[index] || `check${index}`;
+      box.checked = !!data.checks[id];
+      box.addEventListener('change', () => {
+        const updated = load();
+        updated.checks[id] = box.checked;
+        save(updated);
+        updateProgress();
+      });
+    });
+  }
+
+  function saveLog(){
+    const data = load();
+    data.logs.unshift({
+      id: Date.now(),
+      date: document.getElementById('date').value,
+      location: document.getElementById('location').value,
+      drone: document.getElementById('drone').value,
+      minutes: document.getElementById('minutes').value,
+      wind: document.getElementById('wind').value,
+      type: document.getElementById('sessionType').value,
+      notes: document.getElementById('notes').value
+    });
+    save(data);
+    renderLogs();
+    updateProgress();
+    clearForm(false);
+  }
+
+  function clearForm(resetDate = true){
+    if(resetDate) document.getElementById('date').value = todayISO();
+    document.getElementById('location').value = '';
+    document.getElementById('minutes').value = '';
+    document.getElementById('wind').value = '';
+    document.getElementById('notes').value = '';
+  }
+
+  function filteredLogs(){
+    const data = load();
+    const q = (document.getElementById('searchBox')?.value || '').toLowerCase();
+    const type = document.getElementById('filterType')?.value || '';
+    const from = document.getElementById('fromDate')?.value || '';
+    const to = document.getElementById('toDate')?.value || '';
+
+    return data.logs.filter(l => {
+      const text = `${l.date} ${l.location} ${l.drone} ${l.minutes} ${l.wind} ${l.type} ${l.notes}`.toLowerCase();
+      return (!q || text.includes(q)) && (!type || l.type === type) && (!from || l.date >= from) && (!to || l.date <= to);
+    });
+  }
+
+  function renderLogs(){
+    const tbody = document.getElementById('logRows');
+    const logs = filteredLogs();
+    tbody.innerHTML = '';
+
+    if(!logs.length){
+      tbody.innerHTML = '<tr><td colspan="8" class="muted">No flight history found.</td></tr>';
+      updateProgress();
+      return;
+    }
+
+    logs.forEach(log => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${escapeHTML(log.date)}</td>
+        <td>${escapeHTML(log.location)}</td>
+        <td>${escapeHTML(log.drone)}</td>
+        <td>${escapeHTML(log.minutes)}</td>
+        <td>${escapeHTML(log.wind)}</td>
+        <td>${escapeHTML(log.type)}</td>
+        <td>${escapeHTML(log.notes).replace(/\n/g,'<br>')}</td>
+        <td class="row-actions no-print"><button class="danger" onclick="deleteLog(${log.id})">Delete</button></td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    updateProgress();
+  }
+
+  function clearFilters(){
+    document.getElementById('searchBox').value = '';
+    document.getElementById('filterType').value = '';
+    document.getElementById('fromDate').value = '';
+    document.getElementById('toDate').value = '';
+    renderLogs();
+  }
+
+  function deleteLog(id){
+    if(!confirm('Delete this flight log?')) return;
+    const data = load();
+    data.logs = data.logs.filter(l => l.id !== id);
+    save(data);
+    renderLogs();
+    updateProgress();
+  }
+
+  function printReport(){
+    renderLogs();
+    window.print();
+  }
+
+  function exportData(){
+    const data = load();
+    const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'drone-inspection-log-backup.json';
+    a.click();
+  }
+
+  function importData(event){
+    const file = event.target.files[0];
+    if(!file) return;
+
+    const reader = new FileReader();
+    reader.onload = e => {
+      try {
+        const data = JSON.parse(e.target.result);
+        if(!data.logs || !data.checks) throw new Error('Invalid backup file.');
+        save(data);
+        setupChecklistSaving();
+        renderLogs();
+        updateProgress();
+        alert('Backup imported.');
+      } catch(err) {
+        alert('Could not import this backup file.');
+      }
+    };
+    reader.readAsText(file);
+  }
+
+  function escapeHTML(str){
+    return String(str || '').replace(/[&<>'"]/g, c => ({
+      '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#39;', '"':'&quot;'
+    }[c]));
+  }
+
+  setupChecklistSaving();
+  renderLogs();
   updateTimerDisplay();
-  setTimerStatus('Not started', '');
-}
-
-function startFlight(){
-  document.getElementById('startFlightChecklist').scrollIntoView({behavior:'smooth',block:'start'});
-  startTimer();
-} 
-function todayISO(){return new Date().toISOString().slice(0,10)} document.getElementById("date").value=todayISO();
-function load(){return JSON.parse(localStorage.getItem("droneTrainingTracker")||'{"logs":[],"checks":{}}')} function save(data){localStorage.setItem("droneTrainingTracker",JSON.stringify(data))}
-function renderPlan(){const data=load(),wrap=document.getElementById("trainingPlan");wrap.innerHTML="";plan.forEach((w,wi)=>{const div=document.createElement("div");div.className="week";div.innerHTML=`<h3>${w.week}<br><span class="muted">${w.goal}</span></h3>`;w.sessions.forEach((s,si)=>{const id=`w${wi}s${si}`,row=document.createElement("div");row.className="session";row.innerHTML=`<input type="checkbox" ${data.checks[id]?"checked":""} onchange="toggleCheck('${id}',this.checked)"><div><strong>${s[0]}</strong><span class="small">${s[1]}</span></div>`;div.appendChild(row)});wrap.appendChild(div)});updateProgress()}
-function toggleCheck(id,checked){const data=load();data.checks[id]=checked;save(data);updateProgress()}
-function updateProgress(){const data=load(),total=plan.reduce((sum,w)=>sum+w.sessions.length,0),done=Object.values(data.checks).filter(Boolean).length,pct=Math.round(done/total*100),minutes=data.logs.reduce((sum,l)=>sum+(Number(l.minutes)||0),0);document.getElementById("progressBar").style.width=pct+"%";document.getElementById("progressText").textContent=`${pct}% (${done}/${total})`;document.getElementById("flightCount").textContent=data.logs.length;document.getElementById("minuteCount").textContent=minutes;document.getElementById("hourCount").textContent=(minutes/60).toFixed(1)}
-function saveLog(){const data=load();data.logs.unshift({id:Date.now(),date:date.value,location:location.value,drone:drone.value,minutes:minutes.value,wind:wind.value,type:sessionType.value,notes:notes.value});save(data);renderLogs();updateProgress();clearForm(false)}
-function clearForm(resetDate=true){if(resetDate)date.value=todayISO();location.value="";minutes.value="";wind.value="";notes.value=""}
-function filteredLogs(){const data=load();const q=(searchBox?.value||"").toLowerCase(),type=filterType?.value||"",from=fromDate?.value||"",to=toDate?.value||"";return data.logs.filter(l=>{const text=`${l.date} ${l.location} ${l.drone} ${l.minutes} ${l.wind} ${l.type} ${l.notes}`.toLowerCase();return (!q||text.includes(q))&&(!type||l.type===type)&&(!from||l.date>=from)&&(!to||l.date<=to)})}
-function renderLogs(){const tbody=document.getElementById("logRows"),logs=filteredLogs();tbody.innerHTML="";if(!logs.length){tbody.innerHTML=`<tr><td colspan="8" class="muted">No flight history found.</td></tr>`;updateProgress();return}logs.forEach(log=>{const tr=document.createElement("tr");tr.innerHTML=`<td>${escapeHTML(log.date)}</td><td>${escapeHTML(log.location)}</td><td>${escapeHTML(log.drone)}</td><td>${escapeHTML(log.minutes)}</td><td>${escapeHTML(log.wind)}</td><td>${escapeHTML(log.type)}</td><td>${escapeHTML(log.notes).replace(/\n/g,"<br>")}</td><td class="row-actions no-print"><button class="danger" onclick="deleteLog(${log.id})">Delete</button></td>`;tbody.appendChild(tr)});updateProgress()}
-function clearFilters(){searchBox.value="";filterType.value="";fromDate.value="";toDate.value="";renderLogs()}
-function deleteLog(id){if(!confirm("Delete this flight log?"))return;const data=load();data.logs=data.logs.filter(l=>l.id!==id);save(data);renderLogs();updateProgress()}
-function printReport(){renderLogs();window.print()}
-function exportData(){const data=load(),blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="drone-training-tracker-backup.json";a.click()}
-function importData(event){const file=event.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=e=>{try{const data=JSON.parse(e.target.result);if(!data.logs||!data.checks)throw new Error("Invalid backup file.");save(data);renderPlan();renderLogs();alert("Backup imported.")}catch(err){alert("Could not import this backup file.")}};reader.readAsText(file)}
-function escapeHTML(str){return String(str||"").replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]))}
-renderPlan();renderLogs();
+  updateProgress();
 </script>
 </body>
 </html>
