@@ -1,1 +1,305 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#7c3aed" />
+  <title>6-Week Drone Training Plan</title>
+  <style>
+    :root {
+      --card: rgba(255,255,255,.96);
+      --text: #111827;
+      --muted: #64748b;
+      --accent: #7c3aed;
+      --accent2: #06b6d4;
+      --good: #22c55e;
+      --orange: #f97316;
+      --pink: #ec4899;
+      --yellow: #facc15;
+      --shadow: 0 18px 45px rgba(15,23,42,.18);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(236,72,153,.32), transparent 30%),
+        radial-gradient(circle at top right, rgba(250,204,21,.28), transparent 28%),
+        radial-gradient(circle at center, rgba(6,182,212,.24), transparent 36%),
+        linear-gradient(135deg, #020617 0%, #172554 45%, #581c87 100%);
+      color: var(--text);
+      line-height: 1.45;
+      min-height: 100vh;
+    }
+
+    header {
+      color: white;
+      padding: 28px 16px 20px;
+    }
+
+    .hero {
+      max-width: 1050px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, rgba(124,58,237,.28), rgba(6,182,212,.20), rgba(236,72,153,.18));
+      border: 1px solid rgba(255,255,255,.28);
+      border-radius: 28px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .badge {
+      display: inline-flex;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(34,197,94,.24), rgba(6,182,212,.24));
+      border: 1px solid rgba(255,255,255,.35);
+      color: #f0fdf4;
+      font-size: .86rem;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.8rem, 5vw, 3.2rem);
+      line-height: 1.05;
+      letter-spacing: -.04em;
+    }
+
+    header p {
+      margin: 12px 0 0;
+      color: #dbeafe;
+      font-size: 1rem;
+      max-width: 760px;
+    }
+
+    main {
+      max-width: 1050px;
+      margin: 0 auto;
+      padding: 0 16px 32px;
+    }
+
+    .top-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    a.button, button {
+      display: inline-block;
+      border: 0;
+      border-radius: 16px;
+      padding: 12px 15px;
+      font-weight: 900;
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--accent), var(--pink));
+      color: white;
+      text-decoration: none;
+      box-shadow: 0 12px 24px rgba(124,58,237,.25);
+      font: inherit;
+    }
+
+    button.print {
+      background: linear-gradient(135deg, var(--good), var(--accent2));
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,.72);
+      border-radius: 26px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 16px;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, #22c55e, #06b6d4, #7c3aed, #ec4899, #f97316);
+    }
+
+    h2 {
+      margin: 0 0 8px;
+      font-size: 1.35rem;
+    }
+
+    h3 {
+      margin: 14px 0 6px;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .week-title {
+      background: linear-gradient(135deg, #dbeafe, #f5d0fe, #fef3c7);
+      border: 1px solid #e2e8f0;
+      border-radius: 18px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+
+    .session {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 11px;
+      padding: 12px 14px;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(255,255,255,.94), rgba(240,249,255,.82));
+      margin: 10px 0;
+    }
+
+    .session input {
+      width: 22px;
+      height: 22px;
+      margin-top: 2px;
+      accent-color: var(--good);
+    }
+
+    .session strong {
+      display: block;
+      color: #0f172a;
+    }
+
+    .small {
+      font-size: .86rem;
+      color: #475569;
+    }
+
+    .tip-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .tip {
+      background: linear-gradient(135deg, #f8fafc, #eff6ff);
+      border: 1px solid #dbeafe;
+      border-radius: 18px;
+      padding: 14px;
+    }
+
+    .tip strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    @media (max-width: 760px) {
+      .tip-grid { grid-template-columns: 1fr; }
+    }
+
+    @media print {
+      body { background: white; }
+      header, .top-actions { display: none; }
+      main { max-width: none; padding: 0; }
+      .card { box-shadow: none; border: 1px solid #aaa; break-inside: avoid; }
+      .session { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="hero">
+      <div class="badge">📘 Drone Operations Training</div>
+      <h1>6-Week Drone Training Plan</h1>
+      <p>A structured practice plan for building smooth control, inspection confidence, photo discipline, and safer Part 107 habits.</p>
+    </div>
+  </header>
+
+  <main>
+    <div class="top-actions">
+      <a class="button" href="index.html">← Back to Checklist & Flight Log</a>
+      <button class="print" onclick="window.print()">Print Training Plan</button>
+    </div>
+
+    <section class="card">
+      <h2>How to Use This Plan</h2>
+      <div class="tip-grid">
+        <div class="tip"><strong>Fly 3–4 times per week</strong><span class="small">Keep most sessions 20–40 minutes.</span></div>
+        <div class="tip"><strong>Smooth beats fast</strong><span class="small">The goal is clean control, not speed.</span></div>
+        <div class="tip"><strong>Log every flight</strong><span class="small">Use the main checklist page after each session.</span></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="week-title">
+        <h2>Week 1 — Foundation / Control</h2>
+        <p class="muted">Goal: smooth flying, no panic inputs.</p>
+      </div>
+      <div class="session"><input type="checkbox"><div><strong>Session 1: Hover Mastery</strong><span class="small">Hover at 20–30 ft. Hold position for 60 seconds. Practice tiny stick corrections.</span></div></div>
+      <div class="session"><input type="checkbox"><div><strong>Session 2: Straight Lines</strong><span class="small">Fly forward/back and side-to-side. Keep altitude steady.</span></div></div>
+      <div class="session"><input type="checkbox"><div><strong>Session 3: Yaw Control</strong><span class="small">Rotate slowly in place while keeping the drone from drifting.</span></div></div>
+      <div class="session"><input type="checkbox"><div><strong>Session 4: Combine Basics</strong><span class="small">Hover → move → stop → rotate → hover.</span></div></div>
+    </section>
+
+    <section class="card">
+      <div class="week-title">
+        <h2>Week 2 — Movement & Patterns</h2>
+        <p class="muted">Goal: build muscle memory.</p>
+      </div>
+      <div class="session"><input type="checkbox"><div><strong>Session 1: Box Pattern</strong><span class="small">Fly a square pattern with steady altitude and straight lines.</span></div></div>
+      <div class="session"><input type="checkbox"><div><strong>Session 2: Figure 8</strong><span class="small">Practice smooth transitions between turns.</span></div></div>
+      <div class="session"><input type="checkbox"><div><strong>Session 3: Wide Circles / Orbit</strong><span class="small">Orbit a fixed object while keeping distance consistent.</span></div></div>
+      <div class="session"><input type="checkbox"><div><strong>Session 4: Light Wind Practice</strong><span class="small">Fly in 5–10 mph wind. Hold position and correct drift.</span></div></div>
+    </section>
+
+    <section class="card">
+      <div class="week-title">
+        <h2>Week 3 — Precision & Distance</h2>
+        <p class="muted">Goal: stop exactly where you want.</p>
+      </div>
+      <div class="session"><input type="checkbox"><div><strong>Session 1: Approach & Stop</strong><span class="small">Fly toward an object and stop 20–30 ft away.</span></div></div>
+      <div class="session"><input type="checkbox"><div><strong>Session 2: Altitude Control</strong><span class="small">Hold exact heights: 20 ft, 40 ft, and 60 ft.</span></div></div>
+      <div class="session"><input type="checkbox"><div><strong>Session 3: Slow Movement</strong><span class="small">Fly as slowly as possible without drifting.</span></div></div>
+      <div class="session"><input type="checkbox"><div><strong>Session 4: Close Control</strong><span class="small">Fly near objects at a safe distance. Stay clear of trees, wires, and people.</span></div></div>
+    </section>
+
+    <section class="card">
+      <div class="week-title">
+        <h2>Week 4 — Inspection Skills</h2>
+        <p class="muted">Goal: real-world inspection flying.</p>
+      </div>
+      <div class="session"><input type="checkbox"><div><strong>Session 1: Orbit Building</strong><span class="small">Circle a building smoothly at consistent altitude and distance.</span></div></div>
+      <div class="session"><input type="checkbox"><div><strong>Session 2: Top-Down Shots</strong><span class="small">Fly above the target and hold position for straight-down photos.</span></div></div>
+      <div class="session"><input type="checkbox"><div><strong>Session 3: Edge Tracking</strong><span class="small">Follow a roofline or structure edge smoothly.</span></div></div>
+      <div class="session"><input type="checkbox"><div><strong>Session 4: Full Photo Set</strong><span class="small">Capture front, back, both sides, top-down, and angled shots.</span></div></div>
+    </section>
+
+    <section class="card">
+      <div class="week-title">
+        <h2>Week 5 — Real Conditions</h2>
+        <p class="muted">Goal: handle wind, obstacles, and recovery.</p>
+      </div>
+      <div class="session"><input type="checkbox"><div><strong>Session 1: Moderate Wind</strong><span class="small">Practice hover and slow flight in 8–12 mph wind only if safe.</span></div></div>
+      <div class="session"><input type="checkbox"><div><strong>Session 2: Obstacle Awareness</strong><span class="small">Identify trees, poles, wires, people, vehicles, and escape routes before flying.</span></div></div>
+      <div class="session"><input type="checkbox"><div><strong>Session 3: Emergency Practice</strong><span class="small">Simulate low battery return and quick landing.</span></div></div>
+      <div class="session"><input type="checkbox"><div><strong>Session 4: Recovery Control</strong><span class="small">Practice regaining control after drift or overcorrection.</span></div></div>
+    </section>
+
+    <section class="card">
+      <div class="week-title">
+        <h2>Week 6 — Mock Job Training</h2>
+        <p class="muted">Goal: fly like you are getting paid.</p>
+      </div>
+      <div class="session"><input type="checkbox"><div><strong>Session 1: Full Pre-Flight Routine</strong><span class="small">Airspace check, weather check, Remote ID, battery, home point, takeoff area.</span></div></div>
+      <div class="session"><input type="checkbox"><div><strong>Session 2: Full Inspection Flight</strong><span class="small">Orbit, roofline passes, top-down photos, and controlled return.</span></div></div>
+      <div class="session"><input type="checkbox"><div><strong>Session 3: Efficiency Run</strong><span class="small">Complete the inspection smoothly with fewer wasted movements.</span></div></div>
+      <div class="session"><input type="checkbox"><div><strong>Session 4: Final Job Simulation</strong><span class="small">Start → inspect → land → log flight → review photos.</span></div></div>
+    </section>
+  </main>
+</body>
+</html>
