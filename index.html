@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Drone Inspection Checklist & Flight Log</title>
+  <style>
+    :root {
+      --bg: #0f172a; --card: rgba(255,255,255,.95); --text:#111827; --muted:#64748b;
+      --accent:#2563eb; --accent2:#38bdf8; --good:#16a34a; --danger:#dc2626;
+      --border:#e5e7eb; --shadow:0 18px 45px rgba(15,23,42,.18);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(circle at top left,rgba(56,189,248,.28),transparent 34%),radial-gradient(circle at top right,rgba(245,158,11,.22),transparent 26%),linear-gradient(135deg,#0f172a 0%,#111827 42%,#1e293b 100%);color:var(--text);line-height:1.45;min-height:100vh}
+    header{color:#fff;padding:28px 16px 20px}.hero{max-width:1050px;margin:0 auto;display:grid;grid-template-columns:1.5fr .85fr;gap:18px}.hero-panel{background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.18);border-radius:24px;padding:22px;box-shadow:var(--shadow);backdrop-filter:blur(10px)}
+    .badge{display:inline-flex;gap:8px;padding:7px 11px;border-radius:999px;background:rgba(56,189,248,.18);border:1px solid rgba(125,211,252,.35);color:#e0f2fe;font-size:.86rem;font-weight:800;margin-bottom:12px}h1{margin:0;font-size:clamp(1.8rem,5vw,3.2rem);line-height:1.05;letter-spacing:-.04em}header p{margin:12px 0 0;color:#dbeafe;font-size:1rem;max-width:680px}
+    .hero-stats{display:grid;gap:10px}.stat{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.16);border-radius:18px;padding:14px;color:#fff;box-shadow:0 10px 24px rgba(0,0,0,.12)}.stat small{display:block;color:#cbd5e1;font-weight:700}.stat strong{display:block;font-size:1.35rem;margin-top:2px}
+    main{max-width:1050px;margin:0 auto;padding:0 16px 28px}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}.card{background:var(--card);border:1px solid rgba(255,255,255,.65);border-radius:22px;padding:18px;box-shadow:var(--shadow);overflow:hidden}.span-4{grid-column:span 4}.span-6{grid-column:span 6}.span-8{grid-column:span 8}.span-12{grid-column:span 12}@media(max-width:760px){.hero{grid-template-columns:1fr}.span-4,.span-6,.span-8,.span-12{grid-column:span 12}header{padding-top:18px}}
+    h2{margin:0 0 10px;font-size:1.25rem;letter-spacing:-.02em}h3{margin:12px 0 6px}label{display:block;font-weight:800;font-size:.86rem;margin:10px 0 5px;color:#334155}input,select,textarea{width:100%;padding:11px 12px;border:1px solid #cbd5e1;border-radius:14px;font:inherit;background:#fff;outline:none;transition:.15s ease}input:focus,select:focus,textarea:focus{border-color:var(--accent2);box-shadow:0 0 0 4px rgba(56,189,248,.18)}textarea{min-height:92px;resize:vertical}
+    button{border:0;border-radius:14px;padding:11px 14px;font-weight:900;cursor:pointer;background:linear-gradient(135deg,var(--accent),#1d4ed8);color:#fff;margin:7px 7px 0 0;box-shadow:0 10px 20px rgba(37,99,235,.18)}button:hover{transform:translateY(-1px)}button.secondary{background:linear-gradient(135deg,#475569,#334155)}button.good{background:linear-gradient(135deg,#16a34a,#15803d)}button.danger{background:linear-gradient(135deg,#dc2626,#b91c1c)}button.light{background:#e2e8f0;color:#0f172a;box-shadow:none}.muted{color:var(--muted);font-size:.9rem}
+    .progress-wrap{background:#e2e8f0;border-radius:999px;height:18px;overflow:hidden;border:1px solid #cbd5e1}.progress-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--good),#84cc16);transition:width .25s}.summary-box{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}.summary-box div,.info-item{background:#f8fafc;border:1px solid #e2e8f0;border-radius:16px;padding:12px}.summary-box strong,.info-item strong{display:block;font-size:1.2rem}.pilot-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}@media(max-width:760px){.pilot-grid,.summary-box{grid-template-columns:1fr}}
+    .week{border:1px solid #dbe3ef;border-radius:18px;margin:12px 0;overflow:hidden;background:#fff}.week h3{margin:0;padding:14px;background:linear-gradient(135deg,#eff6ff,#f8fafc);font-size:1rem;border-bottom:1px solid #e2e8f0}.session{display:grid;grid-template-columns:auto 1fr;gap:11px;padding:12px 14px;border-top:1px solid #f1f5f9}.session input{width:22px;height:22px;margin-top:2px;accent-color:var(--good)}.session strong{display:block;color:#0f172a}.small{font-size:.85rem;color:#475569}
+    table{width:100%;border-collapse:collapse;font-size:.9rem;background:#fff;border-radius:16px;overflow:hidden}th,td{border-bottom:1px solid #e5e7eb;padding:9px;text-align:left;vertical-align:top}th{background:#f8fafc;color:#334155}.row-actions button{padding:7px 9px;font-size:.78rem}.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:end;margin:8px 0 12px}.toolbar>div{min-width:160px;flex:1}.print-title{display:none}.privacy-note{border-left:4px solid var(--accent2);padding:10px 12px;background:#f0f9ff;border-radius:12px;color:#0f172a}
+    @media print{body{background:white}.no-print,header button,button,input,textarea,select,.toolbar,.row-actions{display:none!important}header{color:#111;padding:0}.hero{display:block}.hero-panel,.stat,.card{box-shadow:none;border:1px solid #aaa;background:white;color:#111}.hero-stats{display:none}.print-title{display:block}.card{break-inside:avoid;margin-bottom:12px}main{max-width:none;padding:0}.grid{display:block}th,td{font-size:11px;padding:6px}h1{font-size:24px}}
+  </style>
+</head>
+<body>
+<header>
+  <div class="hero">
+    <div class="hero-panel"><div class="badge">✈️ Drone Operations</div><h1>Drone Inspection Checklist & Flight Log</h1><p>Training, flight history, pilot information, and printable progress reports for inspection-style drone practice.</p></div>
+    <div class="hero-stats"><div class="stat"><small>Aircraft</small><strong>HS720G</strong></div><div class="stat"><small>Certificate</small><strong>Remote Pilot</strong></div><div class="stat"><small>FAA ID</small><strong>FAXW3ETX9</strong></div></div>
+  </div>
+</header>
+<main>
+  <div class="grid">
+    <section class="card span-12">
+      <h2>Pilot / Certificate Information</h2>
+      <p class="privacy-note"><strong>Privacy note:</strong> I left out your home address, date of birth, weight, and certificate number because this is going on a public GitHub website. Keep those private.</p>
+      <div class="pilot-grid">
+        <div class="info-item"><span class="muted">Pilot Name</span><strong>Kevin Carl Wiltz</strong></div>
+        <div class="info-item"><span class="muted">FAA ID</span><strong>FAXW3ETX9</strong></div>
+        <div class="info-item"><span class="muted">Certificate</span><strong>Remote Pilot</strong></div>
+        <div class="info-item"><span class="muted">Nationality</span><strong>USA</strong></div>
+        <div class="info-item"><span class="muted">Date of Issue</span><strong>31 Mar 2026</strong></div>
+        <div class="info-item"><span class="muted">Training Focus</span><strong>Drone Inspections</strong></div>
+      </div>
+    </section>
+
+    <section class="card span-12">
+      <h2>Start Flight Mode — Combined Checklist</h2>
+      <p class="muted">Use this in the field before, during, and after each flight.</p>
+
+      <div class="grid">
+        <div class="span-6">
+          <h3>1. Pre-Flight</h3>
+          <div class="session"><input type="checkbox"><div><strong>Pilot Verified</strong><span class="small">Kevin Carl Wiltz | FAA ID: FAXW3ETX9 | Remote Pilot</span></div></div>
+          <div class="session"><input type="checkbox"><div><strong>Airspace Checked</strong><span class="small">LAANC / NOTAMs / TFRs reviewed before launch</span></div></div>
+          <div class="session"><input type="checkbox"><div><strong>Weather Checked</strong><span class="small">Wind, gusts, visibility, and temperature acceptable</span></div></div>
+          <div class="session"><input type="checkbox"><div><strong>Remote ID Active</strong><span class="small">Module powered on and broadcasting</span></div></div>
+          <div class="session"><input type="checkbox"><div><strong>Aircraft Ready</strong><span class="small">Props, battery, camera, controller, and SD/storage checked</span></div></div>
+          <div class="session"><input type="checkbox"><div><strong>Home Point Set</strong><span class="small">GPS lock confirmed before beginning mission</span></div></div>
+        </div>
+
+        <div class="span-6">
+          <h3>2. Mission / Training Objective</h3>
+          <div class="session"><input type="checkbox"><div><strong>Select Flight Purpose</strong><span class="small">Training, roof inspection simulation, photo practice, or mock job</span></div></div>
+          <div class="session"><input type="checkbox"><div><strong>Choose Skill Focus</strong><span class="small">Hover, box pattern, orbit, roofline tracking, top-down photos, or wind control</span></div></div>
+          <div class="session"><input type="checkbox"><div><strong>Identify Hazards</strong><span class="small">Trees, wires, people, vehicles, buildings, birds, and landing obstacles</span></div></div>
+          <div class="session"><input type="checkbox"><div><strong>Plan Photo Set</strong><span class="small">Front, back, left, right, angled views, and top-down shots if safe</span></div></div>
+        </div>
+
+        <div class="span-6">
+          <h3>3. In-Flight Execution</h3>
+          <div class="session"><input type="checkbox"><div><strong>Controlled Takeoff</strong><span class="small">Rise to safe hover and confirm stable control</span></div></div>
+          <div class="session"><input type="checkbox"><div><strong>Maintain Visual Line of Sight</strong><span class="small">Keep drone visible and avoid flying behind structures</span></div></div>
+          <div class="session"><input type="checkbox"><div><strong>Smooth Stick Inputs</strong><span class="small">No jerky movements; slow and deliberate control</span></div></div>
+          <div class="session"><input type="checkbox"><div><strong>Monitor Battery & Wind</strong><span class="small">Return early if battery, wind, or control margin becomes questionable</span></div></div>
+          <div class="session"><input type="checkbox"><div><strong>Complete Objective</strong><span class="small">Finish selected training skill or inspection-style photo sequence</span></div></div>
+        </div>
+
+        <div class="span-6">
+          <h3>4. Post-Flight</h3>
+          <div class="session"><input type="checkbox"><div><strong>Controlled Landing</strong><span class="small">Land safely and power down aircraft/controller/module</span></div></div>
+          <div class="session"><input type="checkbox"><div><strong>Equipment Inspected</strong><span class="small">Props, frame, camera, battery, and module checked for damage</span></div></div>
+          <div class="session"><input type="checkbox"><div><strong>Photos Reviewed</strong><span class="small">Check sharpness, coverage, angles, and missing shots</span></div></div>
+          <div class="session"><input type="checkbox"><div><strong>Flight Logged</strong><span class="small">Enter date, location, wind, minutes, session type, and notes below</span></div></div>
+          <div class="session"><input type="checkbox"><div><strong>Lesson Learned</strong><span class="small">Write one thing that went well and one thing to improve next flight</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card span-4"><h2>Progress</h2><div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div><p><strong id="progressText">0%</strong> complete</p><div class="summary-box"><div><span class="muted">Flights</span><strong id="flightCount">0</strong></div><div><span class="muted">Minutes</span><strong id="minuteCount">0</strong></div><div><span class="muted">Hours</span><strong id="hourCount">0.0</strong></div></div><p class="muted">Progress and logs save on this device automatically.</p><button class="good" onclick="printReport()">Print Report</button><button class="secondary" onclick="exportData()">Export Backup</button><button class="light" onclick="document.getElementById('importFile').click()">Import Backup</button><input id="importFile" type="file" accept=".json" style="display:none" onchange="importData(event)"></section>
+
+    <section class="card span-8"><h2>Quick Flight Log</h2><div class="grid"><div class="span-4"><label>Date</label><input id="date" type="date"></div><div class="span-4"><label>Location</label><input id="location" placeholder="Lake Arcadia, Mitch Park, etc."></div><div class="span-4"><label>Drone</label><input id="drone" value="Holy Stone HS720G"></div><div class="span-4"><label>Minutes Flown</label><input id="minutes" type="number" min="0" step="1" placeholder="20"></div><div class="span-4"><label>Wind</label><input id="wind" placeholder="Calm / 8 mph / gusty"></div><div class="span-4"><label>Session Type</label><select id="sessionType"><option>Hover & Control</option><option>Box Pattern</option><option>Orbit Practice</option><option>Wind Handling</option><option>Roof Inspection Simulation</option><option>Mock Job</option><option>Emergency Practice</option><option>Other</option></select></div><div class="span-12"><label>Notes / What improved / What to practice next</label><textarea id="notes" placeholder="Example: Smooth orbit improved. Need work on top-down positioning in wind."></textarea></div></div><button onclick="saveLog()">Save Flight Log</button><button class="light" onclick="clearForm()">Clear</button></section>
+
+    <section class="card span-12">
+      <h2>Start Flight Mode</h2>
+      <p class="muted">Use this step-by-step checklist in the field. It combines pre-flight, training objective, in-flight execution, and post-flight review.</p>
+
+      <div class="grid">
+        <div class="span-6">
+          <h3>1. Pre-Flight</h3>
+          <div class="session"><input type="checkbox"><div><strong>Pilot Verified</strong><span class="small">Kevin Carl Wiltz | FAA ID: FAXW3ETX9 | Remote Pilot</span></div></div>
+          <div class="session"><input type="checkbox"><div><strong>Airspace Checked</strong><span class="small">LAANC / NOTAMs / TFRs reviewed before launch</span></div></div>
+          <div class="session"><input type="checkbox"><div><strong>Weather Checked</strong><span class="small">Wind, gusts, visibility, and temperature acceptable</span></div></div>
+          <div class="session"><input type="checkbox"><div><strong>Remote ID Active</strong><span class="small">Module powered on and broadcasting</span></div></div>
+          <div class="session"><input type="checkbox"><div><strong>Aircraft Ready</strong><span class="small">Props, battery, camera, controller, and SD/storage checked</span></div></div>
+          <div class="session"><input type="checkbox"><div><strong>Home Point Set</strong><span class="small">GPS lock confirmed before beginning mission</span></div></div>
+        </div>
+
+        <div class="span-6">
+          <h3>2. Mission / Training Objective</h3>
+          <div class="session"><input type="checkbox"><div><strong>Select Flight Purpose</strong><span class="small">Training, roof inspection simulation, photo practice, or mock job</span></div></div>
+          <div class="session"><input type="checkbox"><div><strong>Choose Skill Focus</strong><span class="small">Hover, box pattern, orbit, roofline tracking, top-down photos, or wind control</span></div></div>
+          <div class="session"><input type="checkbox"><div><strong>Identify Hazards</strong><span class="small">Trees, wires, people, vehicles, buildings, birds, and landing obstacles</span></div></div>
+          <div class="session"><input type="checkbox"><div><strong>Plan Photo Set</strong><span class="small">Front, back, left, right, angled views, and top-down shots if safe</span></div></div>
+        </div>
+
+        <div class="span-6">
+          <h3>3. In-Flight Execution</h3>
+          <div class="session"><input type="checkbox"><div><strong>Controlled Takeoff</strong><span class="small">Rise to safe hover and confirm stable control</span></div></div>
+          <div class="session"><input type="checkbox"><div><strong>Maintain Visual Line of Sight</strong><span class="small">Keep drone visible and avoid flying behind structures</span></div></div>
+          <div class="session"><input type="checkbox"><div><strong>Smooth Stick Inputs</strong><span class="small">No jerky movements; slow and deliberate control</span></div></div>
+          <div class="session"><input type="checkbox"><div><strong>Monitor Battery & Wind</strong><span class="small">Return early if battery, wind, or control margin becomes questionable</span></div></div>
+          <div class="session"><input type="checkbox"><div><strong>Complete Objective</strong><span class="small">Finish selected training skill or inspection-style photo sequence</span></div></div>
+        </div>
+
+        <div class="span-6">
+          <h3>4. Post-Flight</h3>
+          <div class="session"><input type="checkbox"><div><strong>Controlled Landing</strong><span class="small">Land safely and power down aircraft/controller/module</span></div></div>
+          <div class="session"><input type="checkbox"><div><strong>Equipment Inspected</strong><span class="small">Props, frame, camera, battery, and module checked for damage</span></div></div>
+          <div class="session"><input type="checkbox"><div><strong>Photos Reviewed</strong><span class="small">Check sharpness, coverage, angles, and missing shots</span></div></div>
+          <div class="session"><input type="checkbox"><div><strong>Flight Logged</strong><span class="small">Enter date, location, wind, minutes, session type, and notes below</span></div></div>
+          <div class="session"><input type="checkbox"><div><strong>Lesson Learned</strong><span class="small">Write one thing that went well and one thing to improve next flight</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card span-12"><h2>6-Week Training Reference Plan</h2><div id="trainingPlan"></div></section>
+
+    <section class="card span-12"><h2>Flight History</h2><p class="muted">Search or filter your saved flight history. Use Print Report to print the filtered history and progress summary.</p><div class="toolbar no-print"><div><label>Search</label><input id="searchBox" placeholder="Location, wind, notes..." oninput="renderLogs()"></div><div><label>Session Type</label><select id="filterType" onchange="renderLogs()"><option value="">All</option><option>Hover & Control</option><option>Box Pattern</option><option>Orbit Practice</option><option>Wind Handling</option><option>Roof Inspection Simulation</option><option>Mock Job</option><option>Emergency Practice</option><option>Other</option></select></div><div><label>From</label><input id="fromDate" type="date" onchange="renderLogs()"></div><div><label>To</label><input id="toDate" type="date" onchange="renderLogs()"></div><div><button class="light" onclick="clearFilters()">Clear Filters</button></div></div><h3 class="print-title">Printed Flight History Report</h3><div style="overflow-x:auto;"><table><thead><tr><th>Date</th><th>Location</th><th>Drone</th><th>Minutes</th><th>Wind</th><th>Type</th><th>Notes</th><th class="no-print">Action</th></tr></thead><tbody id="logRows"></tbody></table></div></section>
+  </div>
+</main>
+<script>
+const plan=[{week:"Week 1 – Foundation / Control",goal:"Smooth flying, no panic inputs",sessions:[["Hover Mastery","Hover at 20–30 ft. Hold position 60 seconds. Practice tiny stick corrections."],["Straight Lines","Fly forward/back and side-to-side. Keep altitude steady."],["Yaw Control","Rotate slowly in place while holding position."],["Combine Basics","Hover → move → stop → rotate → hover."]]},{week:"Week 2 – Movement & Patterns",goal:"Build muscle memory",sessions:[["Box Pattern","Fly a square pattern with steady altitude and straight lines."],["Figure 8","Smooth transitions between turns."],["Wide Circles / Orbit","Orbit a fixed object while keeping distance consistent."],["Light Wind Practice","Fly in 5–10 mph wind. Hold position and correct drift."]]},{week:"Week 3 – Precision & Distance",goal:"Stop exactly where you want",sessions:[["Approach & Stop","Fly toward an object and stop 20–30 ft away."],["Altitude Control","Hold exact heights: 20, 40, and 60 ft."],["Slow Movement","Fly as slowly as possible without drifting."],["Close Control","Fly near objects at a safe distance; stay clear of trees, wires, and people."]]},{week:"Week 4 – Inspection Skills",goal:"Real-world inspection flying",sessions:[["Orbit Building","Circle a building smoothly at consistent altitude/distance."],["Top-Down Shots","Fly above target and hold position for straight-down photos."],["Edge Tracking","Follow a roofline or structure edge smoothly."],["Full Photo Set","Capture front, back, both sides, top-down, and angled shots."]]},{week:"Week 5 – Real Conditions",goal:"Handle wind, obstacles, and recovery",sessions:[["Moderate Wind","Practice hover and slow flight in 8–12 mph wind only if safe."],["Obstacle Awareness","Identify trees, poles, wires, people, and escape routes before flying."],["Emergency Practice","Simulate low battery return and quick landing."],["Recovery Control","Practice regaining control after drift or overcorrection."]]},{week:"Week 6 – Mock Job Training",goal:"Fly like you are getting paid",sessions:[["Full Pre-Flight Routine","Airspace check, weather check, Remote ID, battery, home point, takeoff area."],["Full Inspection Flight","Orbit, roofline passes, top-down photos, controlled return."],["Efficiency Run","Complete the inspection smoothly with fewer wasted movements."],["Final Job Simulation","Start → inspect → land → log flight → review photos."]]}];
+function todayISO(){return new Date().toISOString().slice(0,10)} document.getElementById("date").value=todayISO();
+function load(){return JSON.parse(localStorage.getItem("droneTrainingTracker")||'{"logs":[],"checks":{}}')} function save(data){localStorage.setItem("droneTrainingTracker",JSON.stringify(data))}
+function renderPlan(){const data=load(),wrap=document.getElementById("trainingPlan");wrap.innerHTML="";plan.forEach((w,wi)=>{const div=document.createElement("div");div.className="week";div.innerHTML=`<h3>${w.week}<br><span class="muted">${w.goal}</span></h3>`;w.sessions.forEach((s,si)=>{const id=`w${wi}s${si}`,row=document.createElement("div");row.className="session";row.innerHTML=`<input type="checkbox" ${data.checks[id]?"checked":""} onchange="toggleCheck('${id}',this.checked)"><div><strong>${s[0]}</strong><span class="small">${s[1]}</span></div>`;div.appendChild(row)});wrap.appendChild(div)});updateProgress()}
+function toggleCheck(id,checked){const data=load();data.checks[id]=checked;save(data);updateProgress()}
+function updateProgress(){const data=load(),total=plan.reduce((sum,w)=>sum+w.sessions.length,0),done=Object.values(data.checks).filter(Boolean).length,pct=Math.round(done/total*100),minutes=data.logs.reduce((sum,l)=>sum+(Number(l.minutes)||0),0);document.getElementById("progressBar").style.width=pct+"%";document.getElementById("progressText").textContent=`${pct}% (${done}/${total})`;document.getElementById("flightCount").textContent=data.logs.length;document.getElementById("minuteCount").textContent=minutes;document.getElementById("hourCount").textContent=(minutes/60).toFixed(1)}
+function saveLog(){const data=load();data.logs.unshift({id:Date.now(),date:date.value,location:location.value,drone:drone.value,minutes:minutes.value,wind:wind.value,type:sessionType.value,notes:notes.value});save(data);renderLogs();updateProgress();clearForm(false)}
+function clearForm(resetDate=true){if(resetDate)date.value=todayISO();location.value="";minutes.value="";wind.value="";notes.value=""}
+function filteredLogs(){const data=load();const q=(searchBox?.value||"").toLowerCase(),type=filterType?.value||"",from=fromDate?.value||"",to=toDate?.value||"";return data.logs.filter(l=>{const text=`${l.date} ${l.location} ${l.drone} ${l.minutes} ${l.wind} ${l.type} ${l.notes}`.toLowerCase();return (!q||text.includes(q))&&(!type||l.type===type)&&(!from||l.date>=from)&&(!to||l.date<=to)})}
+function renderLogs(){const tbody=document.getElementById("logRows"),logs=filteredLogs();tbody.innerHTML="";if(!logs.length){tbody.innerHTML=`<tr><td colspan="8" class="muted">No flight history found.</td></tr>`;updateProgress();return}logs.forEach(log=>{const tr=document.createElement("tr");tr.innerHTML=`<td>${escapeHTML(log.date)}</td><td>${escapeHTML(log.location)}</td><td>${escapeHTML(log.drone)}</td><td>${escapeHTML(log.minutes)}</td><td>${escapeHTML(log.wind)}</td><td>${escapeHTML(log.type)}</td><td>${escapeHTML(log.notes).replace(/\n/g,"<br>")}</td><td class="row-actions no-print"><button class="danger" onclick="deleteLog(${log.id})">Delete</button></td>`;tbody.appendChild(tr)});updateProgress()}
+function clearFilters(){searchBox.value="";filterType.value="";fromDate.value="";toDate.value="";renderLogs()}
+function deleteLog(id){if(!confirm("Delete this flight log?"))return;const data=load();data.logs=data.logs.filter(l=>l.id!==id);save(data);renderLogs();updateProgress()}
+function printReport(){renderLogs();window.print()}
+function exportData(){const data=load(),blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="drone-training-tracker-backup.json";a.click()}
+function importData(event){const file=event.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=e=>{try{const data=JSON.parse(e.target.result);if(!data.logs||!data.checks)throw new Error("Invalid backup file.");save(data);renderPlan();renderLogs();alert("Backup imported.")}catch(err){alert("Could not import this backup file.")}};reader.readAsText(file)}
+function escapeHTML(str){return String(str||"").replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]))}
+renderPlan();renderLogs();
+</script>
+</body>
+</html>
