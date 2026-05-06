@@ -11,7 +11,6 @@
   <link rel="manifest" href="manifest.json">
   <title>Drone Inspection Checklist & Flight Log</title>
 
-  
   <style>
     :root {
       --card: rgba(255,255,255,.96);
@@ -299,6 +298,41 @@
       margin: 0;
     }
 
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .tool-card {
+      background: linear-gradient(135deg,#f8fafc,#ecfeff,#eff6ff);
+      border: 1px solid #dbeafe;
+      border-radius: 18px;
+      padding: 14px;
+      box-shadow: 0 8px 18px rgba(37,99,235,.08);
+    }
+
+    .tool-card strong {
+      display: block;
+      color: #0f172a;
+      margin-bottom: 4px;
+      font-size: 1rem;
+    }
+
+    .tool-card p {
+      margin: 0 0 10px;
+      color: #475569;
+      font-size: .86rem;
+    }
+
+    .tool-card .button-link {
+      margin: 0;
+      padding: 9px 11px;
+      font-size: .86rem;
+      width: 100%;
+      text-align: center;
+    }
+
     .floating-start {
       position: fixed;
       right: 16px;
@@ -407,7 +441,7 @@
     @media (max-width: 760px) {
       .hero { grid-template-columns: 1fr; }
       .span-4, .span-6, .span-8, .span-12 { grid-column: span 12; }
-      .pilot-grid, .summary-box { grid-template-columns: 1fr; }
+      .pilot-grid, .summary-box, .tools-grid { grid-template-columns: 1fr; }
       .timer-box { align-items: flex-start; }
       .timer-display { text-align: left; }
       .timer-buttons { width: 100%; justify-content: flex-start; }
@@ -474,6 +508,58 @@
     </section>
 
     <section class="card span-12">
+      <h2>Flight Tools</h2>
+      <p class="muted">Use these before launch to check airspace, authorization, TFRs, NOTAMs, weather, FAA records, and safety training.</p>
+      <div class="tools-grid">
+        <div class="tool-card">
+          <strong>🛰 LAANC Authorization</strong>
+          <p>FAA LAANC information and controlled airspace authorization guidance.</p>
+          <a href="https://www.faa.gov/uas/getting_started/laanc" target="_blank" rel="noopener" class="button-link">Open FAA LAANC</a>
+        </div>
+        <div class="tool-card">
+          <strong>📍 Aloft Air Control</strong>
+          <p>Use Aloft for airspace awareness and LAANC workflow where available.</p>
+          <a href="https://air.aloft.ai/" target="_blank" rel="noopener" class="button-link">Open Aloft</a>
+        </div>
+        <div class="tool-card">
+          <strong>✅ B4UFLY / Air Aware</strong>
+          <p>Quick airspace awareness check before recreational or Part 107 flights.</p>
+          <a href="https://www.aloft.ai/air-aware/" target="_blank" rel="noopener" class="button-link">Open Air Aware</a>
+        </div>
+        <div class="tool-card">
+          <strong>🚫 FAA TFR List</strong>
+          <p>Check temporary flight restrictions before every flight.</p>
+          <a href="https://tfr.faa.gov/tfr2/list.html" target="_blank" rel="noopener" class="button-link">Open TFR List</a>
+        </div>
+        <div class="tool-card">
+          <strong>📢 FAA NOTAM Search</strong>
+          <p>Search NOTAMs that may affect your launch area or flight plan.</p>
+          <a href="https://notams.aim.faa.gov/notamSearch/" target="_blank" rel="noopener" class="button-link">Open NOTAM Search</a>
+        </div>
+        <div class="tool-card">
+          <strong>🌦 Aviation Weather</strong>
+          <p>Check aviation weather products before deciding whether to fly.</p>
+          <a href="https://aviationweather.gov/" target="_blank" rel="noopener" class="button-link">Open Aviation Weather</a>
+        </div>
+        <div class="tool-card">
+          <strong>📝 FAA DroneZone</strong>
+          <p>Manage drone registration, Remote ID, and FAA drone account items.</p>
+          <a href="https://faadronezone-access.faa.gov/" target="_blank" rel="noopener" class="button-link">Open DroneZone</a>
+        </div>
+        <div class="tool-card">
+          <strong>📡 Remote ID</strong>
+          <p>FAA Remote ID information and compliance reference.</p>
+          <a href="https://www.faa.gov/uas/getting_started/remote_id" target="_blank" rel="noopener" class="button-link">Open Remote ID</a>
+        </div>
+        <div class="tool-card">
+          <strong>🎓 FAASafety</strong>
+          <p>Training, WINGS, recurrent learning, and safety resources.</p>
+          <a href="https://www.faasafety.gov/" target="_blank" rel="noopener" class="button-link">Open FAASafety</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="card span-12">
       <h2>Pilot / Certificate Information</h2>
       <div class="pilot-grid">
         <div class="info-item"><span class="muted">Pilot Name</span><strong>Kevin Carl Wiltz</strong></div>
@@ -482,6 +568,22 @@
         <div class="info-item"><span class="muted">Nationality</span><strong>USA</strong></div>
         <div class="info-item"><span class="muted">Date of Issue</span><strong>31 Mar 2026</strong></div>
         <div class="info-item"><span class="muted">Training Focus</span><strong>Drone Inspections</strong></div>
+      </div>
+    </section>
+
+    <section class="card span-12">
+      <h2>Flight Planning Links</h2>
+      <p class="muted">Quick links to check before flying. Use these along with your checklist and local rules.</p>
+      <div class="grid">
+        <div class="span-4"><a class="button-link" target="_blank" rel="noopener" href="https://www.faa.gov/uas/getting_started/laanc">FAA LAANC Info →</a></div>
+        <div class="span-4"><a class="button-link" target="_blank" rel="noopener" href="https://air.aloft.ai/">Aloft Air Control / LAANC →</a></div>
+        <div class="span-4"><a class="button-link" target="_blank" rel="noopener" href="https://www.aloft.ai/air-aware/">B4UFLY / Air Aware →</a></div>
+        <div class="span-4"><a class="button-link" target="_blank" rel="noopener" href="https://tfr.faa.gov/tfr2/list.html">FAA TFR List →</a></div>
+        <div class="span-4"><a class="button-link" target="_blank" rel="noopener" href="https://notams.aim.faa.gov/notamSearch/">FAA NOTAM Search →</a></div>
+        <div class="span-4"><a class="button-link" target="_blank" rel="noopener" href="https://faadronezone-access.faa.gov/">FAA DroneZone →</a></div>
+        <div class="span-4"><a class="button-link" target="_blank" rel="noopener" href="https://www.faa.gov/uas/getting_started/remote_id">FAA Remote ID →</a></div>
+        <div class="span-4"><a class="button-link" target="_blank" rel="noopener" href="https://www.faasafety.gov/">FAASafety / Recurrent Training →</a></div>
+        <div class="span-4"><a class="button-link" target="_blank" rel="noopener" href="https://www.faa.gov/uas/getting_started/where_can_i_fly">FAA Where Can I Fly? →</a></div>
       </div>
     </section>
 
