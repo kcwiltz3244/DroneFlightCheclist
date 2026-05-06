@@ -41,10 +41,7 @@
       min-height: 100vh;
     }
 
-    header {
-      color: white;
-      padding: 28px 16px 20px;
-    }
+    header { color: white; padding: 28px 16px 20px; }
 
     .hero {
       max-width: 1050px;
@@ -90,10 +87,18 @@
       max-width: 680px;
     }
 
-    .hero-stats {
-      display: grid;
-      gap: 10px;
+    .domain-line {
+      margin-top: 12px;
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.20);
+      color: #fef9c3;
+      font-weight: 900;
     }
+
+    .hero-stats { display: grid; gap: 10px; }
 
     .stat {
       background: rgba(255,255,255,.12);
@@ -104,30 +109,12 @@
       box-shadow: 0 10px 24px rgba(0,0,0,.12);
     }
 
-    .stat small {
-      display: block;
-      color: #cbd5e1;
-      font-weight: 700;
-    }
+    .stat small { display: block; color: #cbd5e1; font-weight: 700; }
+    .stat strong { display: block; font-size: 1.35rem; margin-top: 2px; }
 
-    .stat strong {
-      display: block;
-      font-size: 1.35rem;
-      margin-top: 2px;
-    }
+    main { max-width: 1050px; margin: 0 auto; padding: 0 16px 28px; }
 
-    main {
-      max-width: 1050px;
-      margin: 0 auto;
-      padding: 0 16px 28px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 16px;
-    }
-
+    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
     .span-4 { grid-column: span 4; }
     .span-6 { grid-column: span 6; }
     .span-8 { grid-column: span 8; }
@@ -153,12 +140,7 @@
       background: linear-gradient(90deg, #22c55e, #06b6d4, #7c3aed, #ec4899, #f97316);
     }
 
-    h2 {
-      margin: 0 0 10px;
-      font-size: 1.25rem;
-      letter-spacing: -.02em;
-    }
-
+    h2 { margin: 0 0 10px; font-size: 1.25rem; letter-spacing: -.02em; }
     h3 { margin: 12px 0 6px; }
 
     label {
@@ -185,10 +167,7 @@
       box-shadow: 0 0 0 4px rgba(56,189,248,.18);
     }
 
-    textarea {
-      min-height: 92px;
-      resize: vertical;
-    }
+    textarea { min-height: 92px; resize: vertical; }
 
     button, .button-link {
       border: 0;
@@ -211,10 +190,7 @@
     button.danger { background: linear-gradient(135deg, #dc2626, #b91c1c); }
     button.light { background: #e2e8f0; color: #0f172a; box-shadow: none; }
 
-    .muted {
-      color: var(--muted);
-      font-size: .9rem;
-    }
+    .muted { color: var(--muted); font-size: .9rem; }
 
     .color-strip {
       height: 8px;
@@ -256,10 +232,7 @@
       margin-top: 10px;
     }
 
-    .timer-left strong {
-      display: block;
-      font-size: .9rem;
-    }
+    .timer-left strong { display: block; font-size: .9rem; }
 
     .timer-status {
       display: inline-block;
@@ -284,54 +257,8 @@
       text-align: center;
     }
 
-    .timer-buttons {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-
-    .timer-buttons button {
-      min-width: auto;
-      padding: 8px 10px;
-      font-size: .85rem;
-      margin: 0;
-    }
-
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-
-    .tool-card {
-      background: linear-gradient(135deg,#f8fafc,#ecfeff,#eff6ff);
-      border: 1px solid #dbeafe;
-      border-radius: 18px;
-      padding: 14px;
-      box-shadow: 0 8px 18px rgba(37,99,235,.08);
-    }
-
-    .tool-card strong {
-      display: block;
-      color: #0f172a;
-      margin-bottom: 4px;
-      font-size: 1rem;
-    }
-
-    .tool-card p {
-      margin: 0 0 10px;
-      color: #475569;
-      font-size: .86rem;
-    }
-
-    .tool-card .button-link {
-      margin: 0;
-      padding: 9px 11px;
-      font-size: .86rem;
-      width: 100%;
-      text-align: center;
-    }
+    .timer-buttons { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+    .timer-buttons button { min-width: auto; padding: 8px 10px; font-size: .85rem; margin: 0; }
 
     .floating-start {
       position: fixed;
@@ -344,11 +271,7 @@
       box-shadow: 0 16px 35px rgba(0,0,0,.28);
     }
 
-    .pilot-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-    }
+    .pilot-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
 
     .info-item, .summary-box div {
       background: linear-gradient(135deg,#f8fafc,#eff6ff);
@@ -358,17 +281,9 @@
       box-shadow: 0 8px 18px rgba(37,99,235,.08);
     }
 
-    .info-item strong, .summary-box strong {
-      display: block;
-      font-size: 1.2rem;
-    }
+    .info-item strong, .summary-box strong { display: block; font-size: 1.2rem; }
 
-    .summary-box {
-      display: grid;
-      grid-template-columns: repeat(3,1fr);
-      gap: 10px;
-      margin-top: 10px;
-    }
+    .summary-box { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-top: 10px; }
 
     .progress-wrap {
       background: #e2e8f0;
@@ -394,54 +309,23 @@
       background: linear-gradient(135deg,rgba(255,255,255,.9),rgba(240,249,255,.75));
     }
 
-    .session input {
-      width: 22px;
-      height: 22px;
-      margin-top: 2px;
-      accent-color: var(--good);
-    }
-
+    .session input { width: 22px; height: 22px; margin-top: 2px; accent-color: var(--good); }
     .session strong { display: block; color:#0f172a; }
     .small { font-size: .85rem; color:#475569; }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: .9rem;
-      background: white;
-      border-radius: 16px;
-      overflow: hidden;
-    }
-
-    th, td {
-      border-bottom: 1px solid #e5e7eb;
-      padding: 9px;
-      text-align: left;
-      vertical-align: top;
-    }
-
+    table { width: 100%; border-collapse: collapse; font-size: .9rem; background: white; border-radius: 16px; overflow: hidden; }
+    th, td { border-bottom: 1px solid #e5e7eb; padding: 9px; text-align: left; vertical-align: top; }
     th { background:#f8fafc; color:#334155; }
     .row-actions button { padding:7px 9px; font-size:.78rem; }
 
-    .toolbar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: end;
-      margin: 8px 0 12px;
-    }
-
-    .toolbar > div {
-      min-width: 160px;
-      flex: 1;
-    }
-
+    .toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: end; margin: 8px 0 12px; }
+    .toolbar > div { min-width: 160px; flex: 1; }
     .print-title { display: none; }
 
     @media (max-width: 760px) {
       .hero { grid-template-columns: 1fr; }
       .span-4, .span-6, .span-8, .span-12 { grid-column: span 12; }
-      .pilot-grid, .summary-box, .tools-grid { grid-template-columns: 1fr; }
+      .pilot-grid, .summary-box { grid-template-columns: 1fr; }
       .timer-box { align-items: flex-start; }
       .timer-display { text-align: left; }
       .timer-buttons { width: 100%; justify-content: flex-start; }
@@ -472,6 +356,7 @@
       <div class="badge">✈️ Drone Operations</div>
       <h1>Drone Inspection Checklist & Flight Log</h1>
       <p>Training, flight history, pilot information, and printable progress reports for inspection-style drone practice.</p>
+      <span class="domain-line">PriorityOneImaging.com</span>
     </div>
     <div class="hero-stats">
       <div class="stat"><small>Aircraft</small><strong>HS720G</strong></div>
@@ -508,58 +393,6 @@
     </section>
 
     <section class="card span-12">
-      <h2>Flight Tools</h2>
-      <p class="muted">Use these before launch to check airspace, authorization, TFRs, NOTAMs, weather, FAA records, and safety training.</p>
-      <div class="tools-grid">
-        <div class="tool-card">
-          <strong>🛰 LAANC Authorization</strong>
-          <p>FAA LAANC information and controlled airspace authorization guidance.</p>
-          <a href="https://www.faa.gov/uas/getting_started/laanc" target="_blank" rel="noopener" class="button-link">Open FAA LAANC</a>
-        </div>
-        <div class="tool-card">
-          <strong>📍 Aloft Air Control</strong>
-          <p>Use Aloft for airspace awareness and LAANC workflow where available.</p>
-          <a href="https://air.aloft.ai/" target="_blank" rel="noopener" class="button-link">Open Aloft</a>
-        </div>
-        <div class="tool-card">
-          <strong>✅ B4UFLY / Air Aware</strong>
-          <p>Quick airspace awareness check before recreational or Part 107 flights.</p>
-          <a href="https://www.aloft.ai/air-aware/" target="_blank" rel="noopener" class="button-link">Open Air Aware</a>
-        </div>
-        <div class="tool-card">
-          <strong>🚫 FAA TFR List</strong>
-          <p>Check temporary flight restrictions before every flight.</p>
-          <a href="https://tfr.faa.gov/tfr2/list.html" target="_blank" rel="noopener" class="button-link">Open TFR List</a>
-        </div>
-        <div class="tool-card">
-          <strong>📢 FAA NOTAM Search</strong>
-          <p>Search NOTAMs that may affect your launch area or flight plan.</p>
-          <a href="https://notams.aim.faa.gov/notamSearch/" target="_blank" rel="noopener" class="button-link">Open NOTAM Search</a>
-        </div>
-        <div class="tool-card">
-          <strong>🌦 Aviation Weather</strong>
-          <p>Check aviation weather products before deciding whether to fly.</p>
-          <a href="https://aviationweather.gov/" target="_blank" rel="noopener" class="button-link">Open Aviation Weather</a>
-        </div>
-        <div class="tool-card">
-          <strong>📝 FAA DroneZone</strong>
-          <p>Manage drone registration, Remote ID, and FAA drone account items.</p>
-          <a href="https://faadronezone-access.faa.gov/" target="_blank" rel="noopener" class="button-link">Open DroneZone</a>
-        </div>
-        <div class="tool-card">
-          <strong>📡 Remote ID</strong>
-          <p>FAA Remote ID information and compliance reference.</p>
-          <a href="https://www.faa.gov/uas/getting_started/remote_id" target="_blank" rel="noopener" class="button-link">Open Remote ID</a>
-        </div>
-        <div class="tool-card">
-          <strong>🎓 FAASafety</strong>
-          <p>Training, WINGS, recurrent learning, and safety resources.</p>
-          <a href="https://www.faasafety.gov/" target="_blank" rel="noopener" class="button-link">Open FAASafety</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="card span-12">
       <h2>Pilot / Certificate Information</h2>
       <div class="pilot-grid">
         <div class="info-item"><span class="muted">Pilot Name</span><strong>Kevin Carl Wiltz</strong></div>
@@ -568,22 +401,6 @@
         <div class="info-item"><span class="muted">Nationality</span><strong>USA</strong></div>
         <div class="info-item"><span class="muted">Date of Issue</span><strong>31 Mar 2026</strong></div>
         <div class="info-item"><span class="muted">Training Focus</span><strong>Drone Inspections</strong></div>
-      </div>
-    </section>
-
-    <section class="card span-12">
-      <h2>Flight Planning Links</h2>
-      <p class="muted">Quick links to check before flying. Use these along with your checklist and local rules.</p>
-      <div class="grid">
-        <div class="span-4"><a class="button-link" target="_blank" rel="noopener" href="https://www.faa.gov/uas/getting_started/laanc">FAA LAANC Info →</a></div>
-        <div class="span-4"><a class="button-link" target="_blank" rel="noopener" href="https://air.aloft.ai/">Aloft Air Control / LAANC →</a></div>
-        <div class="span-4"><a class="button-link" target="_blank" rel="noopener" href="https://www.aloft.ai/air-aware/">B4UFLY / Air Aware →</a></div>
-        <div class="span-4"><a class="button-link" target="_blank" rel="noopener" href="https://tfr.faa.gov/tfr2/list.html">FAA TFR List →</a></div>
-        <div class="span-4"><a class="button-link" target="_blank" rel="noopener" href="https://notams.aim.faa.gov/notamSearch/">FAA NOTAM Search →</a></div>
-        <div class="span-4"><a class="button-link" target="_blank" rel="noopener" href="https://faadronezone-access.faa.gov/">FAA DroneZone →</a></div>
-        <div class="span-4"><a class="button-link" target="_blank" rel="noopener" href="https://www.faa.gov/uas/getting_started/remote_id">FAA Remote ID →</a></div>
-        <div class="span-4"><a class="button-link" target="_blank" rel="noopener" href="https://www.faasafety.gov/">FAASafety / Recurrent Training →</a></div>
-        <div class="span-4"><a class="button-link" target="_blank" rel="noopener" href="https://www.faa.gov/uas/getting_started/where_can_i_fly">FAA Where Can I Fly? →</a></div>
       </div>
     </section>
 
@@ -676,10 +493,16 @@
       <button class="light" onclick="clearForm()">Clear</button>
     </section>
 
-    <section class="card span-12">
+    <section class="card span-6">
       <h2>6-Week Training Plan</h2>
       <p class="muted">Open your training plan on a separate page.</p>
       <a href="training.html" class="button-link">Open Training Plan →</a>
+    </section>
+
+    <section class="card span-6">
+      <h2>Flight Tools</h2>
+      <p class="muted">Open airspace, LAANC, B4UFLY, NOTAM, TFR, weather, DroneZone, and FAA reference links.</p>
+      <a href="flightools.html" class="button-link">Open Flight Tools →</a>
     </section>
 
     <section class="card span-12">
@@ -735,13 +558,8 @@
   function todayISO(){ return new Date().toISOString().slice(0,10); }
   document.getElementById('date').value = todayISO();
 
-  function load(){
-    return JSON.parse(localStorage.getItem('droneInspectionLog') || '{"logs":[],"checks":{}}');
-  }
-
-  function save(data){
-    localStorage.setItem('droneInspectionLog', JSON.stringify(data));
-  }
+  function load(){ return JSON.parse(localStorage.getItem('droneInspectionLog') || '{"logs":[],"checks":{}}'); }
+  function save(data){ localStorage.setItem('droneInspectionLog', JSON.stringify(data)); }
 
   function formatTime(totalSeconds){
     const h = String(Math.floor(totalSeconds / 3600)).padStart(2,'0');
@@ -750,9 +568,7 @@
     return `${h}:${m}:${s}`;
   }
 
-  function updateTimerDisplay(){
-    document.getElementById('timerDisplay').textContent = formatTime(elapsedSeconds);
-  }
+  function updateTimerDisplay(){ document.getElementById('timerDisplay').textContent = formatTime(elapsedSeconds); }
 
   function setTimerStatus(text, mode){
     const status = document.getElementById('timerStatus');
@@ -771,10 +587,7 @@
   }
 
   function stopTimer(){
-    if(timerInterval){
-      clearInterval(timerInterval);
-      timerInterval = null;
-    }
+    if(timerInterval){ clearInterval(timerInterval); timerInterval = null; }
     setTimerStatus('Timer stopped', 'stopped');
     if(elapsedSeconds > 0){
       const roundedMinutes = Math.max(1, Math.round(elapsedSeconds / 60));
@@ -804,7 +617,6 @@
     const done = Object.values(data.checks || {}).filter(Boolean).length;
     const pct = Math.round((done / total) * 100);
     const minutes = data.logs.reduce((sum, l) => sum + (Number(l.minutes) || 0), 0);
-
     document.getElementById('progressBar').style.width = pct + '%';
     document.getElementById('progressText').textContent = `${pct}% (${done}/${total})`;
     document.getElementById('flightCount').textContent = data.logs.length;
@@ -815,7 +627,6 @@
   function setupChecklistSaving(){
     const data = load();
     const boxes = document.querySelectorAll('#startFlightChecklist input[type="checkbox"]');
-
     boxes.forEach((box, index) => {
       const id = checklistIds[index] || `check${index}`;
       box.checked = !!data.checks[id];
@@ -860,7 +671,6 @@
     const type = document.getElementById('filterType')?.value || '';
     const from = document.getElementById('fromDate')?.value || '';
     const to = document.getElementById('toDate')?.value || '';
-
     return data.logs.filter(l => {
       const text = `${l.date} ${l.location} ${l.drone} ${l.minutes} ${l.wind} ${l.type} ${l.notes}`.toLowerCase();
       return (!q || text.includes(q)) && (!type || l.type === type) && (!from || l.date >= from) && (!to || l.date <= to);
@@ -871,13 +681,11 @@
     const tbody = document.getElementById('logRows');
     const logs = filteredLogs();
     tbody.innerHTML = '';
-
     if(!logs.length){
       tbody.innerHTML = '<tr><td colspan="8" class="muted">No flight history found.</td></tr>';
       updateProgress();
       return;
     }
-
     logs.forEach(log => {
       const tr = document.createElement('tr');
       tr.innerHTML = `
@@ -892,7 +700,6 @@
       `;
       tbody.appendChild(tr);
     });
-
     updateProgress();
   }
 
@@ -913,10 +720,7 @@
     updateProgress();
   }
 
-  function printReport(){
-    renderLogs();
-    window.print();
-  }
+  function printReport(){ renderLogs(); window.print(); }
 
   function exportData(){
     const data = load();
@@ -930,7 +734,6 @@
   function importData(event){
     const file = event.target.files[0];
     if(!file) return;
-
     const reader = new FileReader();
     reader.onload = e => {
       try {
@@ -941,9 +744,7 @@
         renderLogs();
         updateProgress();
         alert('Backup imported.');
-      } catch(err) {
-        alert('Could not import this backup file.');
-      }
+      } catch(err) { alert('Could not import this backup file.'); }
     };
     reader.readAsText(file);
   }
@@ -958,11 +759,12 @@
   renderLogs();
   updateTimerDisplay();
   updateProgress();
-if('serviceWorker' in navigator){
-  window.addEventListener('load',()=>{
-    navigator.serviceWorker.register('sw.js');
-  });
-}
+
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>{
+      navigator.serviceWorker.register('sw.js');
+    });
+  }
 </script>
 </body>
 </html>
